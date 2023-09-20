@@ -1,11 +1,19 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ContextLogin from '../context/ContextLogin';
 
 function Login() {
-  const { login, disable, handleChange } = useContext(ContextLogin);
+  const { login, disable, handleChange, handleSubmit } = useContext(ContextLogin);
+  const navigate = useNavigate();
+
+  const submit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleSubmit();
+    navigate('/meals');
+  };
 
   return (
-    <form>
+    <form onSubmit={ submit }>
       <input
         name="email"
         type="email"

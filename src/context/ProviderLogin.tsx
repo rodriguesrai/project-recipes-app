@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ContextLogin from './ContextLogin';
 import { LoginType } from '../types';
 
@@ -14,6 +15,7 @@ const INITIAL_VALUE = {
 function ProviderLogin({ children }: ProviderLoginProps) {
   const [login, setLogin] = useState<LoginType>(INITIAL_VALUE);
   const [disable, setDisable] = useState(false);
+  // const navigate = useNavigate();
 
   const verifyLogin = () => {
     const verifyRegexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+$/i;
@@ -31,10 +33,15 @@ function ProviderLogin({ children }: ProviderLoginProps) {
     setDisable(verifyLogin());
   };
 
+  const handleSubmit = () => {
+    localStorage.setItem('user', JSON.stringify({ email: login.email }));
+  };
+
   const values = {
     login,
     disable,
     handleChange,
+    handleSubmit,
   };
 
   return (

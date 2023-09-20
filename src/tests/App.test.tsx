@@ -15,12 +15,15 @@ describe('Login', () => {
       </ProviderLogin>,
     );
 
+    const button = screen.getByTestId('login-submit-btn');
     const email = screen.getByTestId('email-input');
     const password = screen.getByTestId('password-input');
 
     expect(screen.getByTestId('login-submit-btn')).toBeDisabled();
     await userEvent.type(email, 'teste@teste.com');
     await userEvent.type(password, '1234567');
-    expect(screen.getByTestId('login-submit-btn')).not.toBeDisabled();
+    expect(button).not.toBeDisabled();
+    await userEvent.click(button);
+    expect(screen.getByText('Hello'));
   });
 });

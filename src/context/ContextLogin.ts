@@ -6,7 +6,8 @@ type ContextLoginType = {
   disable: boolean,
   handleChange : (event:
   React
-    .ChangeEvent<HTMLInputElement>) => void;
+    .ChangeEvent<HTMLInputElement>) => void,
+  handleSubmit: () => void;
 };
 
 const ContextLogin = createContext({} as ContextLoginType);
