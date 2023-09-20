@@ -1,6 +1,10 @@
+import SearchBar from './SearchBar';
+
 function Meals() {
   return (
-    <div>Hello</div>
+    <div>
+      <SearchBar />
+    </div>
   );
 }
 
