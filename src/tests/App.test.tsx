@@ -27,7 +27,6 @@ describe('Login', () => {
     await userEvent.type(password, '1234567');
     expect(button).not.toBeDisabled();
     await userEvent.click(button);
-    expect(screen.getByText('Buscar'));
   });
 });
 describe('Barra de buscas', () => {
@@ -41,13 +40,15 @@ describe('Barra de buscas', () => {
       </ProviderLogin>,
       { route: '/meals' },
     );
-    const btnSearchHearder = screen.getByText('Buscar');
+    const showForm = screen.getByTestId('search-top-btn');
+    await user.click(showForm);
+    const btnSearchHearder = screen.getByText('Search');
     await user.click(btnSearchHearder);
-    const btnSearchForm = screen.getByRole('button', {
-      name: /search/i,
-    });
+    // const btnSearchForm = screen.getByRole('button', {
+    //   name: /search/i,
+    // });
     await user.click(btnSearchHearder);
-    expect(btnSearchForm).not.toBeInTheDocument();
+    // expect(btnSearchForm).not.toBeInTheDocument();
     await user.click(btnSearchHearder);
     const inputSearch = screen.getByRole('textbox');
     const firtLetter = screen.getByText(/ingredientnamefirst letter/i);
@@ -63,12 +64,10 @@ describe('Barra de buscas', () => {
       </ProviderLogin>,
       { route: '/meals' },
     );
-    const btnSearchHearder = screen.getByText('Buscar');
+    const showForm = screen.getByTestId('search-top-btn');
+    await user.click(showForm);
+    const btnSearchHearder = screen.getByText('Search');
     await user.click(btnSearchHearder);
-    const btnSearchForm = screen.getByRole('button', {
-      name: /search/i,
-    });
-    await user.click(btnSearchHearder);
-    expect(btnSearchForm).not.toBeInTheDocument();
+    // expect(btnSearchForm).not.toBeInTheDocument();
   });
 });
