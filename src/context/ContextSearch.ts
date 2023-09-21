@@ -5,7 +5,7 @@ type ContextSearchType = {
   handleChange: (event:
   React
     .ChangeEvent<HTMLInputElement>) => void,
-  filterParm: (path:string) => void,
+  handleSubmit: (path:string, location: string) => void,
   apiValue: ApiReturnType | undefined,
 
 };
