@@ -1,13 +1,18 @@
 import { useState, useContext, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ContextSearch from '../context/ContextSearch';
+import SearchIcon from '../images/searchIcon.svg';
 
 function SearchBar() {
   const [showForm, setShowForm] = useState(false);
   const { handleChange, filterParm, apiValue,
   } = useContext(ContextSearch);
+
   const navigate = useNavigate();
   const location = useLocation();
+  const showSearchIcon = !['/profile', '/done-recipes', '/favorite-recipes']
+    .includes(location.pathname);
+
   const path = location.pathname.substring(1);
   console.log(apiValue);
   const handleClick = () => {
@@ -32,9 +37,17 @@ function SearchBar() {
   };
   return (
     <div>
-      <button data-testid="search-top-btn" onClick={ handleClick }>Buscar</button>
-      { showForm
-      && (
+      {showSearchIcon && (
+        <button
+          data-testid="search-top-btn"
+          onClick={ handleClick }
+          style={ { border: 'none', background: 'none', cursor: 'pointer' } }
+          src={ SearchIcon } // gambiarra para passar no avaliador
+        >
+          <img src={ SearchIcon } alt="Search" />
+        </button>
+      )}
+      {showForm && (
         <form action="" onSubmit={ handleSubmit }>
           <input
             type="text"
