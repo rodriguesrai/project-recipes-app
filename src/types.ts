@@ -123,6 +123,7 @@ export type ApiReturnDrinks = {
     strCreativeCommonsConfirmed: string;
     dateModified: string;
   }]
+
 };
 
 export type ApiReturnType = ApiReturnTypeMeals | undefined;
