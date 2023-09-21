@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import ContextSearch from '../context/ContextSearch';
 
-function Recipe() {
+function RecipeDrinks() {
   const { apiValue } = useContext(ContextSearch);
   return (
-    <p>{apiValue?.meals[0].strMeal}</p>
+    <p>{apiValue?.drinks[0].strDrink}</p>
   );
 }
-export default Recipe;
+export default RecipeDrinks;

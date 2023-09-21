@@ -3,14 +3,14 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
-import Meals from './components/Meals';
 import Header from './components/Header';
-import Drinks from './components/Drinks';
-import Recipe from './components/Recipe';
+import Recipes from './components/Recipes';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import Recipe from './components/Recipe';
 import Footer from './components/Footer';
+import RecipeDrinks from './components/RecipeDrinks';
 
 function App() {
   return (
@@ -18,8 +18,8 @@ function App() {
       <Route path="/" element={ <Login /> } />
       <Route path="/" element={ <Header /> }>
         <Route path="/" element={ <Footer /> }>
-          <Route path="/meals" element={ <Meals /> } />
-          <Route path="/drinks" element={ <Drinks /> } />
+          <Route path=":category" element={ <Recipes /> } />
+          <Route path=":category" element={ <Recipes /> } />
           <Route path="/profile" element={ <Profile /> } />
         </Route>
         <Route path="/done-recipes" element={ <DoneRecipes /> } />
@@ -28,7 +28,7 @@ function App() {
       {/* Os componentes das rotas restantes podem ser alteradas de acodo com os requisitos */}
 
       <Route path="/meals/:id-da-receita" element={ <Recipe /> } />
-      <Route path="/drinks/:id-da-receita" element={ <Recipe /> } />
+      <Route path="/drinks/:id-da-receita" element={ <RecipeDrinks /> } />
       <Route path="/meals/:id-da-receita/in-progress" element={ <Recipe /> } />
       <Route path="/drinks/:id-da-receita/in-progress" element={ <Recipe /> } />
 
