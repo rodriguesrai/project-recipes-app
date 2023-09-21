@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ContextSearch from './ContextSearch';
-import { SearchParmType, ApiReturnType } from '../types';
+import { SearchParmType } from '../types';
 import useFetch from '../hooks/useFetch';
 
 type ProviderSearchProps = {
@@ -71,8 +71,10 @@ const INITIAL_VALUE = {
 // };
 function ProviderSearch({ children }: ProviderSearchProps) {
   const [searchParm, setSearchParm] = useState<SearchParmType>(INITIAL_VALUE);
-  const [apiValue, setApiValue] = useState<ApiReturnType>();
+  const [apiValue, setApiValue] = useState<any>();
+  const [showFilter, setShowFilter] = useState(false);
   const { getApi } = useFetch();
+
   const handleChange = (event:
   React
     .ChangeEvent<HTMLInputElement>) => {
@@ -82,25 +84,46 @@ function ProviderSearch({ children }: ProviderSearchProps) {
       [name]: value,
     });
   };
-  const filterParm = async (path:string) => {
+  const filterParm = async (path:string, location:string) => {
     const { parm, input } = searchParm;
-    if (parm === 'ingredient') {
-      setApiValue(await getApi(`https://www.${path}.com/api/json/v1/1/filter.php?i=${input}`));
+    try {
+      if (parm === 'ingredient') {
+        const ingredientResult = await getApi(`https://www.${path}.com/api/json/v1/1/filter.php?i=${input}`);
+        setApiValue(ingredientResult);
+        return ingredientResult;
+      }
+      if (parm === 'name') {
+        const nameResult = await getApi(`https://www.${path}.com/api/json/v1/1/search.php?s=${input}`);
+        setApiValue(nameResult);
+        return nameResult;
+      }
+      if (parm === 'first-letter' && input.length === 1) {
+        const firstLetterResult = await getApi(`https://www.${path}.com/api/json/v1/1/search.php?f=${input}`);
+        setApiValue(firstLetterResult);
+        return firstLetterResult;
+      }
+      if (parm === 'first-letter' && input.length > 1) {
+        window.alert('Your search must have only 1 (one) character');
+        return { [location]: null };
+      }
+    } catch (error) {
+      console.error('Erro na resposta da api', error);
+      return { [location]: null };
     }
-    if (parm === 'name') {
-      setApiValue(await getApi(`https://www.${path}.com/api/json/v1/1/search.php?s=${input}`));
+  };
+
+  const handleSubmit = async (path:string, location: string) => {
+    const data = await filterParm(path, location);
+    if (!data[location]) {
+      window.alert("Sorry, we haven't found any recipes for these filters.");
     }
-    if (parm === 'first-letter' && input.length === 1) {
-      setApiValue(await getApi(`https://www.${path}.com/api/json/v1/1/search.php?f=${input}`));
-    }
-    if (parm === 'first-letter' && input.length > 1) {
-      return window.alert('Your search must have only 1 (one) character');
-    }
+    setShowFilter(true);
   };
   const values = {
     handleChange,
-    filterParm,
+    handleSubmit,
     apiValue,
+    showFilter,
 
   };
   return (

@@ -5,7 +5,7 @@ import SearchIcon from '../images/searchIcon.svg';
 
 function SearchBar() {
   const [showForm, setShowForm] = useState(false);
-  const { handleChange, filterParm, apiValue,
+  const { handleChange, handleSubmit, apiValue,
   } = useContext(ContextSearch);
 
   const navigate = useNavigate();
@@ -14,25 +14,25 @@ function SearchBar() {
     .includes(location.pathname);
 
   const path = location.pathname.substring(1);
-  // console.log(apiValue);
   const handleClick = () => {
     setShowForm(!showForm);
   };
   useEffect(() => {
-    if (apiValue && apiValue.drinks && apiValue?.drinks.length === 1) {
+    if (apiValue?.drinks && apiValue?.drinks.length === 1) {
       navigate(`drinks/${apiValue.drinks[0].idDrink}`);
     }
-    if (apiValue && apiValue.meals && apiValue?.meals.length === 1) {
+    if (apiValue?.meals && apiValue?.meals.length === 1) {
       navigate(`/meals/${apiValue.meals[0].idMeal}`);
     }
   }, [apiValue, navigate]);
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+  const submitSearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (path === 'meals') {
-      filterParm('themealdb');
+      await handleSubmit('themealdb', 'meals');
     }
     if (path === 'drinks') {
-      filterParm('thecocktaildb');
+      await handleSubmit('thecocktaildb', 'drinks');
     }
   };
   return (
@@ -48,7 +48,7 @@ function SearchBar() {
         </button>
       )}
       {showForm && (
-        <form action="" onSubmit={ handleSubmit }>
+        <form action="" onSubmit={ submitSearch }>
           <input
             type="text"
             data-testid="search-input"

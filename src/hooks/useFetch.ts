@@ -9,7 +9,6 @@ function useFetch() {
     setApiData(response);
     return response;
   };
-
   return {
     getApi,
     apiData,

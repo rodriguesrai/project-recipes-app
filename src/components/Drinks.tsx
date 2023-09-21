@@ -1,21 +1,21 @@
 import { useState, useContext, useEffect } from 'react';
-import { ApiReturnType } from '../types';
+import { ApiReturnDrinks } from '../types';
 import ContextSearch from '../context/ContextSearch';
 
 function Drinks() {
-  const [newResults, setNewResults] = useState<ApiReturnType>();
+  const [newResults, setNewResults] = useState<ApiReturnDrinks>();
   const { apiValue } = useContext(ContextSearch);
   useEffect(() => {
-    if (apiValue && apiValue.drinks.length > 12) {
+    if (apiValue?.drinks && apiValue.drinks.length > 12) {
       const newObject = { ...apiValue };
-      setNewResults({ ...newObject, drinks: apiValue.drinks.slice(0, 12) });
+      setNewResults({ drinks: newObject.drinks.slice(0, 12) });
     } else {
       setNewResults(apiValue);
     }
   }, [apiValue]);
   return (
     <div>
-      {newResults && newResults.drinks
+      {newResults?.drinks && newResults.drinks
         .map(({ idDrink, strDrinkThumb, strDrink }, index) => (
           <div data-testid={ `${index}-recipe-card` } key={ idDrink }>
             <img src={ strDrinkThumb } alt="" data-testid={ `${index}-card-img` } />
