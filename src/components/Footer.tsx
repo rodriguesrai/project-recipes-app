@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import DrinkIcon from '../images/drinkIcon.svg';
 import MealIcon from '../images/mealIcon.svg';
 import '../style/Footer.css';
-
+// teste
 function Footer() {
   const navigate = useNavigate();
   const handleNavigatorDrinks = () => {
