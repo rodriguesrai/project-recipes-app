@@ -125,4 +125,4 @@ export type ApiReturnDrinks = {
   }]
 };
 
-export type ApiReturnType = ApiReturnDrinks | ApiReturnTypeMeals;
+export type ApiReturnType = ApiReturnTypeMeals | undefined;

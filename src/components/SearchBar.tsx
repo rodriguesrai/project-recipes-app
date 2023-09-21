@@ -20,7 +20,7 @@ function SearchBar() {
     if (apiValue && apiValue.meals && apiValue?.meals.length === 1) {
       navigate(`/meals/${apiValue.meals[0].idMeal}`);
     }
-  }, [apiValue]);
+  }, [apiValue, navigate]);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (path === 'meals') {
