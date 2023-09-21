@@ -127,4 +127,17 @@ export type ApiReturnDrinks =
     }]
 };
 
-export type ApiReturnType = ApiReturnTypeMeals | ApiReturnDrinks | undefined;
+export type ApiReturnType = ApiReturnTypeMeals | undefined;
+
+export type CategoryFiltersType = {
+  strCategory: string
+};
+
+export type RecipesType = {
+  idMeal: string,
+  idDrink: string,
+  strMealThumb: string,
+  strDrinkThumb: string,
+  strMeal: string,
+  strDrink: string
+};

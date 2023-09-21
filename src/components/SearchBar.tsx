@@ -14,6 +14,7 @@ function SearchBar() {
     .includes(location.pathname);
 
   const path = location.pathname.substring(1);
+  // console.log(apiValue);
   const handleClick = () => {
     setShowForm(!showForm);
   };
