@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ContextSearch from './ContextSearch';
-import { SearchParmType } from '../types';
+import { SearchParmType, ApiReturnType } from '../types';
 import useFetch from '../hooks/useFetch';
 
 type ProviderSearchProps = {
@@ -23,7 +23,7 @@ function ProviderSearch({ children }: ProviderSearchProps) {
       [name]: value,
     });
   };
-  const filterParm = (path:string) => {
+  const filterParm = async (path:string) => {
     const { parm, input } = searchParm;
     if (parm === 'ingredient') {
       getApi(`https://www.${path}.com/api/json/v1/1/filter.php?i=${input}`);
@@ -32,8 +32,7 @@ function ProviderSearch({ children }: ProviderSearchProps) {
       getApi(`https://www.${path}.com/api/json/v1/1/search.php?s=${input}`);
     }
     if (parm === 'first-letter' && input.length === 1) {
-      console.log('entrou');
-      getApi(`https://www.${path}.com/api/json/v1/1/search.php?f=${input}`);
+      await getApi(`https://www.${path}.com/api/json/v1/1/search.php?f=${input}`);
     }
     if (parm === 'first-letter' && input.length > 1) {
       return window.alert('Your search must have only 1 (one) character');
@@ -42,6 +41,8 @@ function ProviderSearch({ children }: ProviderSearchProps) {
   const values = {
     handleChange,
     filterParm,
+    apiData,
+
   };
   return (
     <ContextSearch.Provider value={ values }>

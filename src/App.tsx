@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Meals from './components/Meals';
 import Header from './components/Header';
 import Drinks from './components/Drinks';
+import Recipe from './components/Recipe';
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
       <Route path="/" element={ <Login /> } />
       <Route path="/" element={ <Header /> }>
         <Route path="/meals" element={ <Meals /> } />
+        <Route path="/meals/:id" element={ <Recipe /> } />
         <Route path="/drinks" element={ <Drinks /> } />
+        <Route path="/drinks/:id" element={ <Recipe /> } />
       </Route>
     </Routes>
   );
