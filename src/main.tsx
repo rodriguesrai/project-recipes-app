@@ -4,13 +4,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import ProviderLogin from './context/ProviderLogin';
+import ProviderSearch from './context/ProviderSearch';
 
 ReactDOM
   .createRoot(document.getElementById('root') as HTMLElement)
   .render(
     <ProviderLogin>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <ProviderSearch>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ProviderSearch>
     </ProviderLogin>,
   );
