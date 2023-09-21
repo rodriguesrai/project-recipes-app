@@ -1,17 +1,29 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ContextRecipes from '../context/ContextRecipes';
+import ContextSearch from '../context/ContextSearch';
+import Meals from './Meals';
+import Drinks from './Drinks';
 
 function Recipes() {
   const { fetchRecipes, recipeFilters, handleClick, apiData,
   } = useContext(ContextRecipes);
   const navigate = useNavigate();
   const { category } = useParams();
-
+  const { showFilter, apiValue } = useContext(ContextSearch);
   useEffect(() => {
     fetchRecipes(category);
   }, [category]);
-
+  if (showFilter && category === 'meals') {
+    return (
+      <Meals />
+    );
+  }
+  if (showFilter && category === 'drinks') {
+    return (
+      <Drinks />
+    );
+  }
   return (
     <>
       {recipeFilters.length > 0 && recipeFilters.map((filter, index) => (

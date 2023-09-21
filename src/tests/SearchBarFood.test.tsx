@@ -7,6 +7,8 @@ import { renderWithRouter } from '../helpers/renderWithRouter';
 import ProviderSearch from '../context/ProviderSearch';
 import { mockFetch, mockFetchOne } from './mock/mockFetch';
 
+import ProviderRecipes from '../context/ProviderRecipes';
+
 const searchBtnTop = 'search-top-btn';
 describe('Barra de buscas', () => {
   beforeEach(() => {
@@ -17,11 +19,13 @@ describe('Barra de buscas', () => {
   });
   test('Verifica se barra está na página /meals', async () => {
     const { user } = renderWithRouter(
-      <ProviderLogin>
-        <ProviderSearch>
-          <App />
-        </ProviderSearch>
-      </ProviderLogin>,
+      <ProviderRecipes>
+        <ProviderLogin>
+          <ProviderSearch>
+            <App />
+          </ProviderSearch>
+        </ProviderLogin>
+      </ProviderRecipes>,
       { route: '/meals' },
     );
     const showForm = screen.getByTestId(searchBtnTop);
@@ -52,11 +56,13 @@ describe('Barra de buscas com somente um resultado', () => {
   });
   test('Verifica se a rota é redirecionada corretamente', async () => {
     const { user } = renderWithRouter(
-      <ProviderLogin>
-        <ProviderSearch>
-          <App />
-        </ProviderSearch>
-      </ProviderLogin>,
+      <ProviderRecipes>
+        <ProviderLogin>
+          <ProviderSearch>
+            <App />
+          </ProviderSearch>
+        </ProviderLogin>
+      </ProviderRecipes>,
       { route: '/meals' },
     );
     const showForm = screen.getByTestId(searchBtnTop);

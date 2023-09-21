@@ -7,6 +7,7 @@ type ContextSearchType = {
     .ChangeEvent<HTMLInputElement>) => void,
   handleSubmit: (path:string, location: string) => void,
   apiValue: ApiReturnType | undefined,
+  showFilter: boolean,
 
 };
 const ContextSearch = createContext({} as ContextSearchType);

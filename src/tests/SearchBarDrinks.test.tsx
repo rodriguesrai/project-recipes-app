@@ -7,6 +7,7 @@ import ProviderLogin from '../context/ProviderLogin';
 import { renderWithRouter } from '../helpers/renderWithRouter';
 import ProviderSearch from '../context/ProviderSearch';
 import { mockFetchDrinks } from './mock/mockFetchDrinks';
+import ProviderRecipes from '../context/ProviderRecipes';
 
 const searchBtnTop = 'search-top-btn';
 describe('Barra de buscas para bebidas', async () => {
@@ -18,11 +19,13 @@ describe('Barra de buscas para bebidas', async () => {
   });
   test('Verifica se renderiza as bebidas corratament', async () => {
     const { user } = renderWithRouter(
-      <ProviderLogin>
-        <ProviderSearch>
-          <App />
-        </ProviderSearch>
-      </ProviderLogin>,
+      <ProviderRecipes>
+        <ProviderLogin>
+          <ProviderSearch>
+            <App />
+          </ProviderSearch>
+        </ProviderLogin>
+      </ProviderRecipes>,
       { route: '/drinks' },
     );
     const showForm = screen.getByTestId(searchBtnTop);

@@ -72,6 +72,7 @@ const INITIAL_VALUE = {
 function ProviderSearch({ children }: ProviderSearchProps) {
   const [searchParm, setSearchParm] = useState<SearchParmType>(INITIAL_VALUE);
   const [apiValue, setApiValue] = useState<any>();
+  const [showFilter, setShowFilter] = useState(false);
   const { getApi } = useFetch();
 
   const handleChange = (event:
@@ -116,11 +117,13 @@ function ProviderSearch({ children }: ProviderSearchProps) {
     if (!data[location]) {
       window.alert("Sorry, we haven't found any recipes for these filters.");
     }
+    setShowFilter(true);
   };
   const values = {
     handleChange,
     handleSubmit,
     apiValue,
+    showFilter,
 
   };
   return (

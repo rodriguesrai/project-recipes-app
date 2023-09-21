@@ -25,7 +25,6 @@ function App() {
       <Route path="/meals/:id" element={ <Recipe /> } />
       <Route path="/drinks/:id" element={ <RecipeDrinks /> } />
     </Routes>
-
   );
 }
 
