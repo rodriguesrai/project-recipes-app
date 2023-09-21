@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { useParams } from 'react-router-dom';
 import ContextSearch from '../context/ContextSearch';
 
 function RecipeDrinks() {

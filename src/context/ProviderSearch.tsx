@@ -83,7 +83,7 @@ function ProviderSearch({ children }: ProviderSearchProps) {
       [name]: value,
     });
   };
-  const filterParm = async (path:string) => {
+  const filterParm = async (path:string, location:string) => {
     const { parm, input } = searchParm;
     try {
       if (parm === 'ingredient') {
@@ -112,7 +112,7 @@ function ProviderSearch({ children }: ProviderSearchProps) {
   };
 
   const handleSubmit = async (path:string, location: string) => {
-    const data = await filterParm(path);
+    const data = await filterParm(path, location);
     if (!data[location]) {
       window.alert("Sorry, we haven't found any recipes for these filters.");
     }
