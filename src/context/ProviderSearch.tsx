@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import ContextSearch from './ContextSearch';
-import { SearchParmType,
-  ApiReturnDrinks, ApiReturnTypeMeals, ApiReturnType } from '../types';
+import { SearchParmType } from '../types';
 import useFetch from '../hooks/useFetch';
 
 type ProviderSearchProps = {
@@ -73,7 +72,6 @@ const INITIAL_VALUE = {
 function ProviderSearch({ children }: ProviderSearchProps) {
   const [searchParm, setSearchParm] = useState<SearchParmType>(INITIAL_VALUE);
   const [apiValue, setApiValue] = useState<any>();
-  const [showAlert, setShowAlert] = useState();
   const { getApi } = useFetch();
 
   const handleChange = (event:
@@ -85,21 +83,21 @@ function ProviderSearch({ children }: ProviderSearchProps) {
       [name]: value,
     });
   };
-  const filterParm = async (path:string, location:string) => {
+  const filterParm = async (path:string) => {
     const { parm, input } = searchParm;
     try {
       if (parm === 'ingredient') {
-        const ingredientResult = await getApi(`https://www.${path}.com/api/json/v1/1/filter.php?i=${input}`, location);
+        const ingredientResult = await getApi(`https://www.${path}.com/api/json/v1/1/filter.php?i=${input}`);
         setApiValue(ingredientResult);
         return ingredientResult;
       }
       if (parm === 'name') {
-        const nameResult = await getApi(`https://www.${path}.com/api/json/v1/1/search.php?s=${input}`, location);
+        const nameResult = await getApi(`https://www.${path}.com/api/json/v1/1/search.php?s=${input}`);
         setApiValue(nameResult);
         return nameResult;
       }
       if (parm === 'first-letter' && input.length === 1) {
-        const firstLetterResult = await getApi(`https://www.${path}.com/api/json/v1/1/search.php?f=${input}`, location);
+        const firstLetterResult = await getApi(`https://www.${path}.com/api/json/v1/1/search.php?f=${input}`);
         setApiValue(firstLetterResult);
         return firstLetterResult;
       }
@@ -114,7 +112,7 @@ function ProviderSearch({ children }: ProviderSearchProps) {
   };
 
   const handleSubmit = async (path:string, location: string) => {
-    const data = await filterParm(path, location);
+    const data = await filterParm(path);
     if (!data[location]) {
       window.alert("Sorry, we haven't found any recipes for these filters.");
     }

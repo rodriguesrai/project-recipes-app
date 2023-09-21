@@ -1,13 +1,12 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
+import { screen } from '@testing-library/react';
+
 import { vi } from 'vitest';
 import App from '../App';
 import ProviderLogin from '../context/ProviderLogin';
 import { renderWithRouter } from '../helpers/renderWithRouter';
 import ProviderSearch from '../context/ProviderSearch';
-import { mockFetchDrinks, mockFetchDrinksOne } from './mock/mockFetchDrinks';
+import { mockFetchDrinks } from './mock/mockFetchDrinks';
 
 const searchBtnTop = 'search-top-btn';
 describe('Barra de buscas para bebidas', async () => {

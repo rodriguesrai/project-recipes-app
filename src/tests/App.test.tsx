@@ -1,14 +1,10 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
-import { vi } from 'vitest';
+
 import App from '../App';
 import ProviderLogin from '../context/ProviderLogin';
-import { renderWithRouter } from '../helpers/renderWithRouter';
-import ProviderSearch from '../context/ProviderSearch';
-import { mockFetch, mockFetchOne } from './mock/mockFetch';
-import { mockDataDrinks, mockDataDrinksOne } from './mock/mockData';
 
 describe('Login', () => {
   test('Verificar o componente Login', async () => {

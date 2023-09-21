@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
-import { ApiReturnType, ApiReturnDrinks } from '../types';
+import { ApiReturnDrinks } from '../types';
 import ContextSearch from '../context/ContextSearch';
 
 function Drinks() {
