@@ -6,6 +6,7 @@ function Recipes() {
   const { getApi } = useFetch();
   const [apiData, setApiData] = useState([]);
   const [recipeFilters, setRecipeFilters] = useState([]);
+  const [toggle, setToggle] = useState<string>('');
   const { category } = useParams();
 
   const fetchRecipes = async () => {
@@ -40,7 +41,8 @@ function Recipes() {
   const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const { value } = event.currentTarget;
-    await fetchFilteredData(value);
+    setToggle(value);
+    return toggle === value ? fetchRecipes() : fetchFilteredData(value);
   };
 
   return (
