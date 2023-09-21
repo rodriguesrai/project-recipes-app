@@ -4,6 +4,7 @@ import { SearchParmType,
   ApiReturnDrinks, ApiReturnTypeMeals, ApiReturnType } from '../types';
 import useFetch from '../hooks/useFetch';
 
+type teste = {};
 type ProviderSearchProps = {
   children: React.ReactNode
 };
@@ -85,40 +86,40 @@ function ProviderSearch({ children }: ProviderSearchProps) {
       [name]: value,
     });
   };
-  const filterParm = async (path:string) => {
+  const filterParm = async (path:string, location:string) => {
     const { parm, input } = searchParm;
     try {
       if (parm === 'ingredient') {
-        const ingredientResult = await getApi(`https://www.${path}.com/api/json/v1/1/filter.php?i=${input}`);
+        const ingredientResult = await getApi(`https://www.${path}.com/api/json/v1/1/filter.php?i=${input}`, location);
         setApiValue(ingredientResult);
         return ingredientResult;
       }
       if (parm === 'name') {
-        const nameResult = await getApi(`https://www.${path}.com/api/json/v1/1/search.php?s=${input}`);
+        const nameResult = await getApi(`https://www.${path}.com/api/json/v1/1/search.php?s=${input}`, location);
         setApiValue(nameResult);
         return nameResult;
       }
       if (parm === 'first-letter' && input.length === 1) {
-        const firstLetterResult = await getApi(`https://www.${path}.com/api/json/v1/1/search.php?f=${input}`);
+        const firstLetterResult = await getApi(`https://www.${path}.com/api/json/v1/1/search.php?f=${input}`, location);
         setApiValue(firstLetterResult);
         return firstLetterResult;
       }
       if (parm === 'first-letter' && input.length > 1) {
         window.alert('Your search must have only 1 (one) character');
-        return null;
+        return { [location]: null };
       }
     } catch (error) {
       console.error('Erro na resposta da api', error);
+      return { [location]: null };
     }
   };
 
   const handleSubmit = async (path:string, location: string) => {
-    const data = await filterParm(path);
-    if (data[location] === null) {
+    const data = await filterParm(path, location);
+    if (!data[location]) {
       window.alert("Sorry, we haven't found any recipes for these filters.");
     }
   };
-
   const values = {
     handleChange,
     handleSubmit,

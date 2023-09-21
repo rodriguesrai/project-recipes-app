@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { vi } from 'vitest';
@@ -7,6 +7,7 @@ import App from '../App';
 import ProviderLogin from '../context/ProviderLogin';
 import { renderWithRouter } from '../helpers/renderWithRouter';
 import ProviderSearch from '../context/ProviderSearch';
+import mockFetch from './mock/mockFetch';
 
 describe('Login', () => {
   test('Verificar o componente Login', async () => {
@@ -30,7 +31,13 @@ describe('Login', () => {
   });
 });
 describe('Barra de buscas', () => {
-  vi.spyOn(window, 'alert');
+  // const alert = vi.spyOn(window, 'alert');
+  beforeEach(() => {
+    vi.spyOn(global, 'fetch').mockImplementation(mockFetch as any);
+  });
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
   test('Verifica se barra está na página /meals', async () => {
     const { user } = renderWithRouter(
       <ProviderLogin>
@@ -43,31 +50,33 @@ describe('Barra de buscas', () => {
     const showForm = screen.getByTestId('search-top-btn');
     await user.click(showForm);
     const btnSearchHearder = screen.getByText('Search');
-    await user.click(btnSearchHearder);
-    // const btnSearchForm = screen.getByRole('button', {
-    //   name: /search/i,
-    // });
-    await user.click(btnSearchHearder);
-    // expect(btnSearchForm).not.toBeInTheDocument();
-    await user.click(btnSearchHearder);
+
     const inputSearch = screen.getByRole('textbox');
-    const firtLetter = screen.getByText(/ingredientnamefirst letter/i);
-    await user.type(inputSearch, 'aa');
-    await userEvent.click(firtLetter);
-  });
-  test('Verifica se barra está na página /drinks', async () => {
-    const { user } = renderWithRouter(
-      <ProviderLogin>
-        <ProviderSearch>
-          <App />
-        </ProviderSearch>
-      </ProviderLogin>,
-      { route: '/meals' },
-    );
-    const showForm = screen.getByTestId('search-top-btn');
-    await user.click(showForm);
-    const btnSearchHearder = screen.getByText('Search');
+    const ingredientFilter = screen.getByTestId('ingredient-search-radio');
+    await user.type(inputSearch, 'chicken');
+    await user.click(ingredientFilter);
     await user.click(btnSearchHearder);
-    // expect(btnSearchForm).not.toBeInTheDocument();
+    expect(global.fetch).toHaveBeenCalled();
+    waitFor(() => {
+      const teste = screen.getByText(/brown stew chicken/i);
+      expect(teste).not.toBeInTheDocument();
+    });
+    const firstLetterInput = screen.getByTestId('first-letter-search-radio');
+    // await user.type(inputSearch, 'aa');
+    // await user.click(firstLetterInput);
+    // await user.click(btnSearchHearder);
+    screen.debug();
   });
+  // test('Verifica se barra está na página /drinks', async () => {
+  //   const { user } = renderWithRouter(
+  //     <ProviderLogin>
+  //       <ProviderSearch>
+  //         <App />
+  //       </ProviderSearch>
+  //     </ProviderLogin>,
+  //     { route: '/drinks' },
+  //   );
+  //   const showForm = screen.getByTestId('search-top-btn');
+  //   // expect(btnSearchForm).not.toBeInTheDocument();
+  // });
 });

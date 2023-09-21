@@ -25,6 +25,7 @@ function SearchBar() {
       navigate(`/meals/${apiValue.meals[0].idMeal}`);
     }
   }, [apiValue, navigate]);
+
   const submitSearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (path === 'meals') {
@@ -32,7 +33,6 @@ function SearchBar() {
     }
     if (path === 'drinks') {
       await handleSubmit('thecocktaildb', 'drinks');
-      console.log('teste');
     }
   };
   return (

@@ -9,7 +9,7 @@ function useFetch() {
   //   setApiData(response);
   //   return response;
   // };
-  const getApi = async (url: string) => {
+  const getApi = async (url: string, location:string) => {
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -20,7 +20,7 @@ function useFetch() {
       return data;
     } catch (error) {
       console.error('Erro ao chamar a API:', error);
-      return null; // Retorna nulo em caso de erro.
+      return { [location]: null }; // Retorna nulo em caso de erro.
     }
   };
 
