@@ -73,6 +73,7 @@ function ProviderSearch({ children }: ProviderSearchProps) {
   const [searchParm, setSearchParm] = useState<SearchParmType>(INITIAL_VALUE);
   const [apiValue, setApiValue] = useState<ApiReturnType>();
   const { getApi } = useFetch();
+
   const handleChange = (event:
   React
     .ChangeEvent<HTMLInputElement>) => {
