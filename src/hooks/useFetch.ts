@@ -19,7 +19,7 @@ function useFetch() {
       setApiData(data);
       return data;
     } catch (error) {
-      console.error('Erro ao chamar a API:', error);
+      // console.error('Erro ao chamar a API:', error);
       return { [location]: null }; // Retorna nulo em caso de erro.
     }
   };

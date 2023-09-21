@@ -4,7 +4,6 @@ import { SearchParmType,
   ApiReturnDrinks, ApiReturnTypeMeals, ApiReturnType } from '../types';
 import useFetch from '../hooks/useFetch';
 
-type teste = {};
 type ProviderSearchProps = {
   children: React.ReactNode
 };

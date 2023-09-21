@@ -61,7 +61,7 @@ describe('Barra de buscas', () => {
       const teste = screen.getByText(/brown stew chicken/i);
       expect(teste).not.toBeInTheDocument();
     });
-    const firstLetterInput = screen.getByTestId('first-letter-search-radio');
+    // const firstLetterInput = screen.getByTestId('first-letter-search-radio');
     // await user.type(inputSearch, 'aa');
     // await user.click(firstLetterInput);
     // await user.click(btnSearchHearder);
