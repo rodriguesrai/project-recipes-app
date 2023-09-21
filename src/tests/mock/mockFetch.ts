@@ -1,7 +1,9 @@
-import mockData from './mockData';
+import { mockData, mockDataOne } from './mockData';
 
-const mockFetch = () => Promise.resolve({
+export const mockFetch = () => Promise.resolve({
   json: () => Promise.resolve(mockData),
 });
 
-export default mockFetch;
+export const mockFetchOne = () => Promise.resolve({
+  json: () => Promise.resolve(mockDataOne),
+});
