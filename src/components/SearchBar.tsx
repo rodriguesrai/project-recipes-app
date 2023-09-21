@@ -4,20 +4,23 @@ import ContextSearch from '../context/ContextSearch';
 
 function SearchBar() {
   const [showForm, setShowForm] = useState(false);
-  const { handleChange, filterParm, apiData,
+  const { handleChange, filterParm, apiValue,
   } = useContext(ContextSearch);
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname.substring(1);
-
+  console.log(apiValue);
   const handleClick = () => {
     setShowForm(!showForm);
   };
   useEffect(() => {
-    if (apiData?.meals.length === 1) {
-      navigate(`/${path}/${apiData.meals[0].idMeal}`);
+    if (apiValue && apiValue.drinks && apiValue?.drinks.length === 1) {
+      navigate(`drinks/${apiValue.drinks[0].idDrink}`);
     }
-  }, [apiData]);
+    if (apiValue && apiValue.meals && apiValue?.meals.length === 1) {
+      navigate(`/meals/${apiValue.meals[0].idMeal}`);
+    }
+  }, [apiValue]);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (path === 'meals') {

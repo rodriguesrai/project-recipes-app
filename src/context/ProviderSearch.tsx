@@ -10,9 +10,68 @@ const INITIAL_VALUE = {
   input: '',
   parm: '',
 };
-
+const INITIAL_VALUE_API = {
+  meals: [
+    {
+      idMeal: '',
+      strMeal: '',
+      strDrinkAlternate: '',
+      strCategory: '',
+      strArea: '',
+      strInstructions: '',
+      strMealThumb: '',
+      strTags: '',
+      strYoutube: '',
+      strIngredient1: '',
+      strIngredient2: '',
+      strIngredient3: '',
+      strIngredient4: '',
+      strIngredient5: '',
+      strIngredient6: '',
+      strIngredient7: '',
+      strIngredient8: '',
+      strIngredient9: '',
+      strIngredient10: '',
+      strIngredient11: '',
+      strIngredient12: '',
+      strIngredient13: '',
+      strIngredient14: '',
+      strIngredient15: '',
+      strIngredient16: '',
+      strIngredient17: '',
+      strIngredient18: '',
+      strIngredient19: '',
+      strIngredient20: '',
+      strMeasure1: '',
+      strMeasure2: '',
+      strMeasure3: '',
+      strMeasure4: '',
+      strMeasure5: '',
+      strMeasure6: '',
+      strMeasure7: '',
+      strMeasure8: '',
+      strMeasure9: '',
+      strMeasure10: '',
+      strMeasure11: '',
+      strMeasure12: '',
+      strMeasure13: '',
+      strMeasure14: '',
+      strMeasure15: '',
+      strMeasure16: '',
+      strMeasure17: '',
+      strMeasure18: '',
+      strMeasure19: '',
+      strMeasure20: '',
+      strSource: 'string',
+      strImageSource: 'string',
+      strCreativeCommonsConfirmed: 'string',
+      dateModified: 'string',
+    },
+  ],
+};
 function ProviderSearch({ children }: ProviderSearchProps) {
   const [searchParm, setSearchParm] = useState<SearchParmType>(INITIAL_VALUE);
+  const [apiValue, setApiValue] = useState<ApiReturnType>();
   const { apiData, getApi } = useFetch();
   const handleChange = (event:
   React
@@ -26,22 +85,23 @@ function ProviderSearch({ children }: ProviderSearchProps) {
   const filterParm = async (path:string) => {
     const { parm, input } = searchParm;
     if (parm === 'ingredient') {
-      getApi(`https://www.${path}.com/api/json/v1/1/filter.php?i=${input}`);
+      setApiValue(await getApi(`https://www.${path}.com/api/json/v1/1/filter.php?i=${input}`));
     }
     if (parm === 'name') {
-      getApi(`https://www.${path}.com/api/json/v1/1/search.php?s=${input}`);
+      setApiValue(await getApi(`https://www.${path}.com/api/json/v1/1/search.php?s=${input}`));
     }
     if (parm === 'first-letter' && input.length === 1) {
-      await getApi(`https://www.${path}.com/api/json/v1/1/search.php?f=${input}`);
+      setApiValue(await getApi(`https://www.${path}.com/api/json/v1/1/search.php?f=${input}`));
     }
     if (parm === 'first-letter' && input.length > 1) {
       return window.alert('Your search must have only 1 (one) character');
     }
   };
+  console.log(apiValue);
   const values = {
     handleChange,
     filterParm,
-    apiData,
+    apiValue,
 
   };
   return (

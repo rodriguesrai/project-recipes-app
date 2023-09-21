@@ -6,7 +6,7 @@ type ContextSearchType = {
   React
     .ChangeEvent<HTMLInputElement>) => void,
   filterParm: (path:string) => void,
-  apiData: ApiReturnType | undefined,
+  apiValue: ApiReturnType | undefined,
 
 };
 const ContextSearch = createContext({} as ContextSearchType);
