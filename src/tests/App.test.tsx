@@ -24,6 +24,6 @@ describe('Login', () => {
     await userEvent.type(password, '1234567');
     expect(button).not.toBeDisabled();
     await userEvent.click(button);
-    expect(screen.getByText('Hello'));
+    expect(screen.getByText('Buscar'));
   });
 });
