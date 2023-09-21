@@ -1,7 +1,6 @@
 import { screen } from '@testing-library/react';
 import App from '../App';
 import { renderWithRouter } from '../helpers/renderWithRouter';
-import ProviderLogin from '../context/ContextLogin';
 import ProviderSearch from '../context/ProviderSearch';
 import ProviderRecipes from '../context/ProviderRecipes';
 
