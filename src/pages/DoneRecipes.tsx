@@ -44,8 +44,7 @@ function DoneRecipes() {
       .then(() => {
         setCopied(true);
         setTimeout(() => setCopied(false), 3000);
-      })
-      .catch((error) => console.error('Erro ao copiar:', error));
+      });
   };
   return (
     <>
@@ -82,7 +81,7 @@ function DoneRecipes() {
           <Link to={ `/${recipe.type}s/${recipe.id}` }>
             <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
           </Link>
-          { doneRecipes[index].type === 'meal' ? (
+          { filteredRecipes[index].type === 'meal' ? (
             <p
               data-testid={ `${index}-horizontal-top-text` }
             >
