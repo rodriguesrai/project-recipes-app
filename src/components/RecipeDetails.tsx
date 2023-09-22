@@ -74,6 +74,8 @@ function RecipeDetails() {
           </div>
         ))}
       </div>
+      <button data-testid="share-btn">Compartilhar Receita</button>
+      <button data-testid="favorite-btn">Favoritar Receita</button>
       {!doneRecipe.some((recipe) => recipe.id === id)
       && (
         <button
