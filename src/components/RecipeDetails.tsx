@@ -9,6 +9,7 @@ function RecipeDetails() {
   const [thumbnail, setThumbnail] = useState('');
   const [recipeName, setRecipeName] = useState('');
   const [doneRecipe, setDoneRecipe] = useState([]);
+  const [progressRecipe, setProgressRecipe] = useState(false);
   const { id } = useParams();
   const { pathname } = useLocation();
   const { getApi } = useFetch();
@@ -43,11 +44,20 @@ function RecipeDetails() {
     getSuggestions();
     const responseLocalStorage = JSON
       .parse(localStorage.getItem('doneRecipes') as string);
+
+    const responseProgress = JSON.parse(localStorage
+      .getItem('inProgressRecipes') as string);
+
     if (responseLocalStorage) {
       setDoneRecipe(responseLocalStorage);
     }
+    if (responseProgress && responseProgress[path]) setProgressRecipe(responseProgress[path]);
   }, []);
-  // console.log(doneRecipe.some((recipe) => recipe.id === id));
+  // const verify = () => {
+  //   if (progressRecipe[path]) {
+  //     return
+  //   }
+  // };
   return (
     <>
 
@@ -65,7 +75,8 @@ function RecipeDetails() {
       {!doneRecipe.some((recipe) => recipe.id === id)
       && (
         <button data-testid="start-recipe-btn" className="btnStart">
-          Start Recipe
+          {!progressRecipe[id]
+            ? 'Start Recipe' : 'Continue Recipe'}
         </button>
       )}
     </>
