@@ -2,21 +2,15 @@ import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import ContextSearch from '../context/ContextSearch';
 import '../style/Carrousel.css';
-import useFetch from '../hooks/useFetch';
-import { ApiReturnDrinks, ApiReturnTypeMeals } from '../types';
 
 function RecipeDetails() {
   const [thumbnail, setThumbnail] = useState('');
   const [recipeName, setRecipeName] = useState('');
-  const [doneRecipe, setDoneRecipe] = useState([]);
-  const [progressRecipe, setProgressRecipe] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
   const { pathname } = useLocation();
-  const { getApi } = useFetch();
-  // const { getSuggestions, suggestions } = useContext(ContextSearch);
-  const [suggestions, setSuggestions] = useState<ApiReturnDrinks[] |
-  ApiReturnTypeMeals[]>([]);
+  const { getSuggestions, suggestions, getLocalStorageCarrousel,
+    doneRecipe, progressRecipe } = useContext(ContextSearch);
   const path: string = pathname.split('/')[1];
 
   const verifyPath = () => {
@@ -29,35 +23,15 @@ function RecipeDetails() {
       setRecipeName('strMeal');
     }
   };
+
   const handleClickStart = () => {
     navigate(`/${path}/${id}/in-progress`);
   };
 
   useEffect(() => {
     verifyPath();
-    const getSuggestions = async () => {
-      if (path === 'meals') {
-        const drinks = await getApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-        setSuggestions(drinks.drinks.slice(0, 6));
-      }
-      if (path === 'drinks') {
-        const food = await getApi('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-        setSuggestions(food.meals.slice(0, 6));
-      }
-    };
-    getSuggestions();
-    const responseLocalStorage = JSON
-      .parse(localStorage.getItem('doneRecipes') as string);
-
-    const responseProgress = JSON.parse(localStorage
-      .getItem('inProgressRecipes') as string);
-
-    if (responseLocalStorage) {
-      setDoneRecipe(responseLocalStorage);
-    }
-    if (responseProgress && responseProgress[path]) {
-      return setProgressRecipe(responseProgress[path]);
-    }
+    getSuggestions(path);
+    getLocalStorageCarrousel(path);
   }, []);
 
   return (
