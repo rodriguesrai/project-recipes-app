@@ -25,11 +25,8 @@ function App() {
         <Route path="/done-recipes" element={ <DoneRecipes /> } />
         <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
       </Route>
-      {/* Os componentes das rotas restantes podem ser alteradas de acodo com os requisitos */}
-
       <Route path="/meals/:id" element={ <RecipeDetails /> } />
       <Route path="/drinks/:id" element={ <RecipeDetails /> } />
-      {/* esses componentes que estão sendo renderizado precisam ser modificados coloquei apenas para não dar erro */}
       <Route path="/meals/:id/in-progress" element={ <RecipeDetails /> } />
       <Route path="/drinks/:id/in-progress" element={ <RecipeDetails /> } />
 

@@ -7,13 +7,16 @@ function RecipeDetails() {
   const [thumbnail, setThumbnail] = useState('');
   const [recipeName, setRecipeName] = useState('');
   const navigate = useNavigate();
+
   const { id } = useParams();
   const { pathname } = useLocation();
+
   const { getSuggestions, suggestions, getLocalStorageCarrousel,
-    doneRecipe, progressRecipe } = useContext(ContextSearch);
+    doneRecipe, progressRecipe,
+    fetchRecipeDetailsAPI, recipeDetailsAPI } = useContext(ContextSearch);
+
   const path: string = pathname.split('/')[1];
-  const recipeDetailsContext = useContext(ContextSearch);
-  const { fetchRecipeDetailsAPI, recipeDetailsAPI } = recipeDetailsContext;
+
   const verifyPath = () => {
     if (path === 'meals') {
       setThumbnail('strDrinkThumb');
