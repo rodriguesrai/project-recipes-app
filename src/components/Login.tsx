@@ -4,8 +4,6 @@ import ContextLogin from '../context/ContextLogin';
 
 function Login() {
   const { login, disable, handleChange, handleSubmit } = useContext(ContextLogin);
-  localStorage.setItem('inProgressRecipes', JSON
-    .stringify({ meals: { 52977: ['teste'] } }));
   const navigate = useNavigate();
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
