@@ -1,6 +1,5 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { RecipeMealsDetails } from '../types';
 import ContextSearch from '../context/ContextSearch';
 
 function RecipeDetails() {
@@ -9,6 +8,48 @@ function RecipeDetails() {
   const { pathname } = useLocation();
 
   const param = useParams();
+
+  const renderIngredientMeasuresMeals = (recipeDetails) => {
+    const listIngredientsMeasures = [];
+
+    for (let index = 1; index <= 20; index += 1) {
+      const currentIngredient = recipeDetails[`strIngredient${index}`];
+      const currentMeasure = recipeDetails[`strMeasure${index}`];
+
+      if (currentIngredient !== '' && currentMeasure !== ' ') {
+        listIngredientsMeasures.push(
+          <ul
+            data-testid={ `${index - 1}-ingredient-name-and-measure` }
+            key={ index }
+          >
+            <li>{`${currentIngredient} - ${currentMeasure}`}</li>
+          </ul>,
+        );
+      }
+    }
+    return listIngredientsMeasures;
+  };
+
+  const renderIngredientMeasuresDrinks = (recipeDetails) => {
+    const listIngredientsMeasures = [];
+
+    for (let index = 1; index <= 15; index += 1) {
+      const currentIngredient = recipeDetails[`strIngredient${index}`];
+      const currentMeasure = recipeDetails[`strMeasure${index}`];
+
+      if (currentIngredient !== null && currentMeasure !== null) {
+        listIngredientsMeasures.push(
+          <ul
+            data-testid={ `${index - 1}-ingredient-name-and-measure` }
+            key={ index }
+          >
+            <li>{`${currentIngredient} - ${currentMeasure}`}</li>
+          </ul>,
+        );
+      }
+    }
+    return listIngredientsMeasures;
+  };
 
   useEffect(() => {
     fetchRecipeDetailsAPI(pathname, param.id);
@@ -19,74 +60,51 @@ function RecipeDetails() {
       { pathname.includes('meals') ? (
         <div>
           {' '}
-          { recipeDetailsAPI && recipeDetailsAPI
-            .map((recipe: RecipeMealsDetails, index) => (
-              <div key={ recipe.idMeal }>
-                <img
-                  data-testid="recipe-photo"
-                  src={ recipe.strMealThumb }
-                  alt={ recipe.strMeal }
-                />
-                <h1 data-testid="recipe-title">{recipe.strMeal}</h1>
-                <p data-testid="recipe-category">{recipe.strCategory}</p>
-                <ul data-testid={ `${index}-ingredient-name-and-measure` }>
-                  <li>{`${recipe.strIngredient1} - ${recipe.strMeasure1}`}</li>
-                  <li>{`${recipe.strIngredient2} - ${recipe.strMeasure2}`}</li>
-                  <li>{`${recipe.strIngredient3} - ${recipe.strMeasure3}`}</li>
-                  {recipe.strIngredient4 !== ''
-                  && <li>{`${recipe.strIngredient4} - ${recipe.strMeasure4}`}</li>}
-                  {recipe.strIngredient5 !== ''
-                  && <li>{`${recipe.strIngredient5} - ${recipe.strMeasure5}`}</li>}
-                  {recipe.strIngredient6 !== ''
-                  && <li>{`${recipe.strIngredient6} - ${recipe.strMeasure6}`}</li>}
-                  {recipe.strIngredient7 !== ''
-                  && <li>{`${recipe.strIngredient7} - ${recipe.strMeasure7}`}</li>}
-                  {recipe.strIngredient8 !== ''
-                  && <li>{`${recipe.strIngredient8} - ${recipe.strMeasure8}`}</li>}
-                  {recipe.strIngredient9 !== ''
-                  && <li>{`${recipe.strIngredient9} - ${recipe.strMeasure9}`}</li>}
-                  {recipe.strIngredient10 !== ''
-                  && <li>{`${recipe.strIngredient10} - ${recipe.strMeasure10}`}</li>}
-                  {recipe.strIngredient11 !== ''
-                  && <li>{`${recipe.strIngredient11} - ${recipe.strMeasure11}`}</li>}
-                  {recipe.strIngredient12 !== ''
-                  && <li>{`${recipe.strIngredient12} - ${recipe.strMeasure12}`}</li>}
-                  {recipe.strIngredient13 !== ''
-                  && <li>{`${recipe.strIngredient13} - ${recipe.strMeasure13}`}</li>}
-                  {recipe.strIngredient14 !== ''
-                  && <li>{`${recipe.strIngredient14} - ${recipe.strMeasure14}`}</li>}
-                  {recipe.strIngredient15 !== ''
-                  && <li>{`${recipe.strIngredient15} - ${recipe.strMeasure15}`}</li>}
-                  {recipe.strIngredient16 !== ''
-                  && <li>{`${recipe.strIngredient16} - ${recipe.strMeasure16}`}</li>}
-                  {recipe.strIngredient17 !== ''
-                  && <li>{`${recipe.strIngredient17} - ${recipe.strMeasure17}`}</li>}
-                  {recipe.strIngredient18 !== ''
-                  && <li>{`${recipe.strIngredient18} - ${recipe.strMeasure18}`}</li>}
-                  {recipe.strIngredient19 !== ''
-                  && <li>{`${recipe.strIngredient19} - ${recipe.strMeasure19}`}</li>}
-                  {recipe.strIngredient20 !== ''
-                  && <li>{`${recipe.strIngredient20} - ${recipe.strMeasure20}`}</li>}
-                </ul>
-                <p data-testid="instructions">{recipe.strInstructions}</p>
-                <iframe
-                  width="560"
-                  height="315"
-                  src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
-                  title={ recipe.strMeal }
-                  // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
-                />
-              </div>
-            ))}
+          { recipeDetailsAPI && (
+            <div key={ recipeDetailsAPI.idMeal }>
+              <img
+                data-testid="recipe-photo"
+                src={ recipeDetailsAPI.strMealThumb }
+                alt={ recipeDetailsAPI.strMeal }
+              />
+              <h1 data-testid="recipe-title">{recipeDetailsAPI.strMeal}</h1>
+              <p data-testid="recipe-category">{recipeDetailsAPI.strCategory}</p>
+              {renderIngredientMeasuresMeals(recipeDetailsAPI)}
+              <p data-testid="instructions">{recipeDetailsAPI.strInstructions}</p>
+              <iframe
+                data-testid="video"
+                width="560"
+                height="315"
+                src={ recipeDetailsAPI.strYoutube.replace('watch?v=', 'embed/') }
+                title={ recipeDetailsAPI.strMeal }
+              />
+            </div>
+          )}
 
         </div>
 
       )
         : (
           <div>
-            {recipeDetailsAPI && recipeDetailsAPI.map((recipe) => (
-              <p>{recipe.strDrink}</p>
-            ))}
+            { recipeDetailsAPI && (
+              <div key={ recipeDetailsAPI.idDrink }>
+                <img
+                  data-testid="recipe-photo"
+                  src={ recipeDetailsAPI.strDrinkThumb }
+                  alt={ recipeDetailsAPI.strDrink }
+                />
+                <h1 data-testid="recipe-title">{recipeDetailsAPI.strDrink}</h1>
+                <p data-testid="recipe-category">{recipeDetailsAPI.strCategory}</p>
+                {recipeDetailsAPI.strAlcoholic === 'Alcoholic' && (
+                  <p data-testid="recipe-category">
+                    {recipeDetailsAPI.strAlcoholic}
+
+                  </p>
+                )}
+                {renderIngredientMeasuresDrinks(recipeDetailsAPI)}
+                <p data-testid="instructions">{recipeDetailsAPI.strInstructions}</p>
+              </div>
+            )}
           </div>
         )}
     </div>

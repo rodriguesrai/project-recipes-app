@@ -9,7 +9,7 @@ type ContextSearchType = {
   apiValue: ApiReturnType | undefined,
   showFilter: boolean,
   fetchRecipeDetailsAPI: (pathname: string, id: string | undefined) => Promise<void>,
-  recipeDetailsAPI: RecipeMealsDetails[] | undefined,
+  recipeDetailsAPI: RecipeMealsDetails | undefined,
 
 };
 const ContextSearch = createContext({} as ContextSearchType);
