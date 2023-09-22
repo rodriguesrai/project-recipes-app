@@ -5,3 +5,8 @@
 .imgCarrousel{
 width: 200px;
 }
+
+.btnStart {
+  position: fixed;
+  bottom: 0px;
+}

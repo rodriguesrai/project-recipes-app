@@ -40,15 +40,21 @@ function RecipeDetails() {
     getSuggestions();
   }, []);
   return (
-    <div className="carrouselContainer">
-      {suggestions.length > 0 && suggestions.map((suggestion, index) => (
-        <div data-testid={ `${index}-recommendation-card` } key={ index }>
-          <img src={ suggestion[thumbnail] } alt="" className="imgCarrousel" />
-          <p data-testid={ `${index}-recommendation-title` }>{suggestion[recipeName]}</p>
-        </div>
-      ))}
-    </div>
+    <>
 
+      <div className="carrouselContainer">
+        {suggestions.length > 0 && suggestions.map((suggestion, index) => (
+          <div data-testid={ `${index}-recommendation-card` } key={ index }>
+            <img src={ suggestion[thumbnail] } alt="" className="imgCarrousel" />
+            <p data-testid={ `${index}-recommendation-title` }>
+              {suggestion[recipeName]}
+
+            </p>
+          </div>
+        ))}
+      </div>
+      <button data-testid="start-recipe-btn" className="btnStart">Start Recipe</button>
+    </>
   );
 }
 
