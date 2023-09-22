@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import ContextSearch from '../context/ContextSearch';
 import '../style/Carrousel.css';
@@ -8,6 +8,8 @@ import { ApiReturnDrinks, ApiReturnTypeMeals } from '../types';
 function RecipeDetails() {
   const [thumbnail, setThumbnail] = useState('');
   const [recipeName, setRecipeName] = useState('');
+  const [doneRecipe, setDoneRecipe] = useState([]);
+  const { id } = useParams();
   const { pathname } = useLocation();
   const { getApi } = useFetch();
   // const { getSuggestions, suggestions } = useContext(ContextSearch);
@@ -25,6 +27,7 @@ function RecipeDetails() {
       setRecipeName('strMeal');
     }
   };
+  // setDoneRecipe(JSON.parse(localStorage.getItem('doneRecipes') as string));
   useEffect(() => {
     verifyPath();
     const getSuggestions = async () => {
@@ -38,7 +41,13 @@ function RecipeDetails() {
       }
     };
     getSuggestions();
+    const responseLocalStorage = JSON
+      .parse(localStorage.getItem('doneRecipes') as string);
+    if (responseLocalStorage) {
+      setDoneRecipe(responseLocalStorage);
+    }
   }, []);
+  // console.log(doneRecipe.some((recipe) => recipe.id === id));
   return (
     <>
 
@@ -53,7 +62,12 @@ function RecipeDetails() {
           </div>
         ))}
       </div>
-      <button data-testid="start-recipe-btn" className="btnStart">Start Recipe</button>
+      {!doneRecipe.some((recipe) => recipe.id === id)
+      && (
+        <button data-testid="start-recipe-btn" className="btnStart">
+          Start Recipe
+        </button>
+      )}
     </>
   );
 }
