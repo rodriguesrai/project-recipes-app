@@ -1,4 +1,4 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import ContextSearch from '../context/ContextSearch';
 import '../style/Carrousel.css';
@@ -10,6 +10,7 @@ function RecipeDetails() {
   const [recipeName, setRecipeName] = useState('');
   const [doneRecipe, setDoneRecipe] = useState([]);
   const [progressRecipe, setProgressRecipe] = useState(false);
+  const navigate = useNavigate();
   const { id } = useParams();
   const { pathname } = useLocation();
   const { getApi } = useFetch();
@@ -28,7 +29,10 @@ function RecipeDetails() {
       setRecipeName('strMeal');
     }
   };
-  // setDoneRecipe(JSON.parse(localStorage.getItem('doneRecipes') as string));
+  const handleClickStart = () => {
+    navigate(`/${path}/${id}/in-progress`);
+  };
+
   useEffect(() => {
     verifyPath();
     const getSuggestions = async () => {
@@ -55,11 +59,7 @@ function RecipeDetails() {
       return setProgressRecipe(responseProgress[path]);
     }
   }, []);
-  // const verify = () => {
-  //   if (progressRecipe[path]) {
-  //     return
-  //   }
-  // };
+
   return (
     <>
 
@@ -76,7 +76,11 @@ function RecipeDetails() {
       </div>
       {!doneRecipe.some((recipe) => recipe.id === id)
       && (
-        <button data-testid="start-recipe-btn" className="btnStart">
+        <button
+          data-testid="start-recipe-btn"
+          className="btnStart"
+          onClick={ handleClickStart }
+        >
           {!progressRecipe[id]
             ? 'Start Recipe' : 'Continue Recipe'}
         </button>

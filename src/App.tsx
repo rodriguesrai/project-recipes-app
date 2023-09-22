@@ -30,8 +30,8 @@ function App() {
 
       <Route path="/meals/:id" element={ <RecipeDetails /> } />
       <Route path="/drinks/:id" element={ <RecipeDetails /> } />
-      <Route path="/meals/:id-da-receita/in-progress" element={ <Recipe /> } />
-      <Route path="/drinks/:id-da-receita/in-progress" element={ <Recipe /> } />
+      <Route path="/meals/:id/in-progress" element={ <Recipe /> } />
+      <Route path="/drinks/:id/in-progress" element={ <Recipe /> } />
 
     </Routes>
   );

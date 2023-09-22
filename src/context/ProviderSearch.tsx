@@ -18,7 +18,7 @@ function ProviderSearch({ children }: ProviderSearchProps) {
   // const [suggestions, setSuggestions] = useState<ApiReturnDrinks[] |
   // ApiReturnTypeMeals[]>([]);
   const { getApi } = useFetch();
-  const recepiSuggestion = useFetch();
+  // const recepiSuggestion = useFetch();
 
   const handleChange = (event:
   React
