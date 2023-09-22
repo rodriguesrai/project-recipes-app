@@ -8,9 +8,9 @@ import Recipes from './components/Recipes';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
-import Recipe from './components/Recipe';
+import RecipeDetails from './components/RecipeDetails';
 import Footer from './components/Footer';
-import RecipeDrinks from './components/RecipeDrinks';
+// import RecipeDrinks from './components/RecipeDrinks';
 
 function App() {
   return (
@@ -27,10 +27,11 @@ function App() {
       </Route>
       {/* Os componentes das rotas restantes podem ser alteradas de acodo com os requisitos */}
 
-      <Route path="/meals/:id-da-receita" element={ <Recipe /> } />
-      <Route path="/drinks/:id-da-receita" element={ <RecipeDrinks /> } />
-      <Route path="/meals/:id-da-receita/in-progress" element={ <Recipe /> } />
-      <Route path="/drinks/:id-da-receita/in-progress" element={ <Recipe /> } />
+      <Route path="/meals/:id" element={ <RecipeDetails /> } />
+      <Route path="/drinks/:id" element={ <RecipeDetails /> } />
+      {/* esses componentes que estão sendo renderizado precisam ser modificados coloquei apenas para não dar erro */}
+      <Route path="/meals/:id-da-receita/in-progress" element={ <RecipeDetails /> } />
+      <Route path="/drinks/:id-da-receita/in-progress" element={ <RecipeDetails /> } />
 
     </Routes>
   );
