@@ -51,7 +51,9 @@ function RecipeDetails() {
     if (responseLocalStorage) {
       setDoneRecipe(responseLocalStorage);
     }
-    if (responseProgress && responseProgress[path]) setProgressRecipe(responseProgress[path]);
+    if (responseProgress && responseProgress[path]) {
+      return setProgressRecipe(responseProgress[path]);
+    }
   }, []);
   // const verify = () => {
   //   if (progressRecipe[path]) {
