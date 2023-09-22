@@ -12,7 +12,8 @@ function RecipeDetails() {
   const { getSuggestions, suggestions, getLocalStorageCarrousel,
     doneRecipe, progressRecipe } = useContext(ContextSearch);
   const path: string = pathname.split('/')[1];
-
+  const recipeDetailsContext = useContext(ContextSearch);
+  const { fetchRecipeDetailsAPI, recipeDetailsAPI } = recipeDetailsContext;
   const verifyPath = () => {
     if (path === 'meals') {
       setThumbnail('strDrinkThumb');
@@ -32,10 +33,103 @@ function RecipeDetails() {
     verifyPath();
     getSuggestions(path);
     getLocalStorageCarrousel(path);
-  }, []);
+    fetchRecipeDetailsAPI(pathname, id);
+  }, [id]);
 
+  const renderIngredientMeasuresDrinks = (recipeDetails) => {
+    const listIngredientsMeasures = [];
+
+    for (let index = 1; index <= 15; index += 1) {
+      const currentIngredient = recipeDetails[`strIngredient${index}`];
+      const currentMeasure = recipeDetails[`strMeasure${index}`];
+
+      if (currentIngredient !== null && currentMeasure !== null) {
+        listIngredientsMeasures.push(
+          <ul
+            data-testid={ `${index - 1}-ingredient-name-and-measure` }
+            key={ index }
+          >
+            <li>{`${currentIngredient} - ${currentMeasure}`}</li>
+          </ul>,
+        );
+      }
+    }
+    return listIngredientsMeasures;
+  };
+  const renderIngredientMeasuresMeals = (recipeDetails) => {
+    const listIngredientsMeasures = [];
+
+    for (let index = 1; index <= 20; index += 1) {
+      const currentIngredient = recipeDetails[`strIngredient${index}`];
+      const currentMeasure = recipeDetails[`strMeasure${index}`];
+
+      if (currentIngredient !== '' && currentMeasure !== ' ') {
+        listIngredientsMeasures.push(
+          <ul
+            data-testid={ `${index - 1}-ingredient-name-and-measure` }
+            key={ index }
+          >
+            <li>{`${currentIngredient} - ${currentMeasure}`}</li>
+          </ul>,
+        );
+      }
+    }
+    return listIngredientsMeasures;
+  };
   return (
     <>
+      <div>
+        { pathname.includes('meals') ? (
+          <div>
+            {' '}
+            { recipeDetailsAPI && (
+              <div key={ recipeDetailsAPI.idMeal }>
+                <img
+                  data-testid="recipe-photo"
+                  src={ recipeDetailsAPI.strMealThumb }
+                  alt={ recipeDetailsAPI.strMeal }
+                />
+                <h1 data-testid="recipe-title">{recipeDetailsAPI.strMeal}</h1>
+                <p data-testid="recipe-category">{recipeDetailsAPI.strCategory}</p>
+                {renderIngredientMeasuresMeals(recipeDetailsAPI)}
+                <p data-testid="instructions">{recipeDetailsAPI.strInstructions}</p>
+                <iframe
+                  data-testid="video"
+                  width="560"
+                  height="315"
+                  src={ recipeDetailsAPI.strYoutube.replace('watch?v=', 'embed/') }
+                  title={ recipeDetailsAPI.strMeal }
+                />
+              </div>
+            )}
+
+          </div>
+
+        )
+          : (
+            <div>
+              { recipeDetailsAPI && (
+                <div key={ recipeDetailsAPI.idDrink }>
+                  <img
+                    data-testid="recipe-photo"
+                    src={ recipeDetailsAPI.strDrinkThumb }
+                    alt={ recipeDetailsAPI.strDrink }
+                  />
+                  <h1 data-testid="recipe-title">{recipeDetailsAPI.strDrink}</h1>
+                  <p data-testid="recipe-category">{recipeDetailsAPI.strCategory}</p>
+                  {recipeDetailsAPI.strAlcoholic === 'Alcoholic' && (
+                    <p data-testid="recipe-category">
+                      {recipeDetailsAPI.strAlcoholic}
+
+                    </p>
+                  )}
+                  {renderIngredientMeasuresDrinks(recipeDetailsAPI)}
+                  <p data-testid="instructions">{recipeDetailsAPI.strInstructions}</p>
+                </div>
+              )}
+            </div>
+          )}
+      </div>
 
       <div className="carrouselContainer">
         {suggestions.length > 0 && suggestions.map((suggestion, index) => (

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ContextSearch from './ContextSearch';
 import { SearchParmType, ApiReturnDrinks,
-  ApiReturnTypeMeals, CarrouselIndexType } from '../types';
+  ApiReturnTypeMeals, CarrouselIndexType, RecipeMealsDetails } from '../types';
 import useFetch from '../hooks/useFetch';
 
 type ProviderSearchProps = {
@@ -11,8 +11,10 @@ const INITIAL_VALUE = {
   input: '',
   parm: '',
 };
+
 function ProviderSearch({ children }: ProviderSearchProps) {
   const [searchParm, setSearchParm] = useState<SearchParmType>(INITIAL_VALUE);
+  const [recipeDetailsAPI, setRecipeDetailsAPI] = useState<RecipeMealsDetails>();
   const [apiValue, setApiValue] = useState<any>();
   const [showFilter, setShowFilter] = useState(false);
   const [suggestions, setSuggestions] = useState<ApiReturnDrinks[] |
@@ -86,6 +88,21 @@ function ProviderSearch({ children }: ProviderSearchProps) {
     }
   };
 
+  const fetchRecipeDetailsAPI = (pathname: string, id: string | undefined) => {
+    const fetchRecipe = async () => {
+      const URL_API = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+      const data = await getApi(URL_API);
+
+      setRecipeDetailsAPI(data.meals[0]);
+    };
+    const fetchDrinkAPI = async () => {
+      const URL_API = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+      const data = await getApi(URL_API);
+      setRecipeDetailsAPI(data.drinks[0]);
+    };
+    return pathname.includes('meals') ? fetchRecipe() : fetchDrinkAPI();
+  };
+
   const handleSubmit = async (path:string, location: string) => {
     const data = await filterParm(path, location);
     if (!data[location]) {
@@ -104,7 +121,10 @@ function ProviderSearch({ children }: ProviderSearchProps) {
     getLocalStorageCarrousel,
     doneRecipe,
     progressRecipe,
+    fetchRecipeDetailsAPI,
+    recipeDetailsAPI,
   };
+
   return (
     <ContextSearch.Provider value={ values }>
       {children}

@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import { ApiReturnDrinks, ApiReturnType,
-  ApiReturnTypeMeals, CarrouselIndexType } from '../types';
+  ApiReturnTypeMeals, RecipeMealsDetails } from '../types';
 
 type ContextSearchType = {
   handleChange: (event:
@@ -14,6 +14,9 @@ type ContextSearchType = {
   getLocalStorageCarrousel: (path:string) => any,
   doneRecipe: any[]
   progressRecipe: boolean,
+  fetchRecipeDetailsAPI: (pathname: string, id: string | undefined) => Promise<void>,
+  recipeDetailsAPI: RecipeMealsDetails | undefined,
+
 };
 const ContextSearch = createContext({} as ContextSearchType);
 
