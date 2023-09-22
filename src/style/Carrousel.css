@@ -1,0 +1,7 @@
+.carrouselContainer {
+  display: flex;
+  overflow-x: auto;
+}
+.imgCarrousel{
+width: 200px;
+}

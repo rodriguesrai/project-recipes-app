@@ -141,3 +141,9 @@ export type RecipesType = {
   strMeal: string,
   strDrink: string
 };
+
+export type CarrouselIndexType = {
+  img1: number,
+  img2: number,
+  card: number,
+};

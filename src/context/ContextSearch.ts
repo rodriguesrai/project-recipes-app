@@ -1,5 +1,6 @@
 import { createContext } from 'react';
-import { ApiReturnType } from '../types';
+import { ApiReturnDrinks, ApiReturnType,
+  ApiReturnTypeMeals, CarrouselIndexType } from '../types';
 
 type ContextSearchType = {
   handleChange: (event:
@@ -8,7 +9,8 @@ type ContextSearchType = {
   handleSubmit: (path:string, location: string) => void,
   apiValue: ApiReturnType | undefined,
   showFilter: boolean,
-
+  // getSuggestions: (path: string) => void
+  // suggestions: ApiReturnDrinks[] | ApiReturnTypeMeals[],
 };
 const ContextSearch = createContext({} as ContextSearchType);
 
