@@ -26,7 +26,7 @@ function ProviderRecipes({ children }: ProviderRecipesProps) {
       setRecipeFilters(filters.drinks.slice(0, 5));
     }
   };
-
+  console.log(recipeFilters);
   const fetchFilteredData = async (value: string, category: string | undefined) => {
     let filteredData = [];
     if (category === 'meals') {

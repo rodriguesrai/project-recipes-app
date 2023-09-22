@@ -60,10 +60,10 @@ describe('Verifica funcionalidades na tela Meals', () => {
       </ProviderRecipes>,
       { route: '/drinks' },
     );
-    // const cocoaCategory = screen.getByTestId(/Cocoa-category-filter/i);
-    // await user.click(cocoaCategory);
-    // expect(screen.getByText(/castillian hot chocolate/i)).toBeInTheDocument();
-    // const resetFilter = screen.getByTestId('All-category-filter');
-    // await user.click(resetFilter);
+    const cocoaCategory = screen.getByTestId(/Cocoa-category-filter/i);
+    await user.click(cocoaCategory);
+    expect(screen.getByText(/castillian hot chocolate/i)).toBeInTheDocument();
+    const resetFilter = screen.getByTestId('All-category-filter');
+    await user.click(resetFilter);
   });
 });
