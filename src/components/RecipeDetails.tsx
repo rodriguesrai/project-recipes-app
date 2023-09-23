@@ -7,7 +7,6 @@ function RecipeDetails() {
   const [thumbnail, setThumbnail] = useState('');
   const [recipeName, setRecipeName] = useState('');
   const navigate = useNavigate();
-
   const { id } = useParams();
 
   const { pathname } = useLocation();
