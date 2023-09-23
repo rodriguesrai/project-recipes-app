@@ -55,9 +55,14 @@ function RecipeDetails() {
         image: path === 'meals' ? recipeDetailsAPI.strMealThumb
           : recipeDetailsAPI.strDrinkThumb,
       }];
+      setFavorites(newFavorite);
       return localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorite));
     }
+    const removeFavorite = favorites.filter((favorite) => favorite.id !== id);
+    setFavorites(removeFavorite);
+    return localStorage.setItem('favoriteRecipes', JSON.stringify(removeFavorite));
   };
+  console.log(favorites);
   useEffect(() => {
     verifyPath();
     getSuggestions(path);
