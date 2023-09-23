@@ -52,11 +52,15 @@ function ProviderSearch({ children }: ProviderSearchProps) {
   const getSuggestions = async (path:string) => {
     if (path === 'meals') {
       const drinks = await recepiSuggestion.getApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-      setSuggestions(drinks.drinks.slice(0, 6));
+      if (drinks.drinks) {
+        setSuggestions(drinks.drinks.slice(0, 6));
+      }
     }
     if (path === 'drinks') {
       const food = await recepiSuggestion.getApi('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-      setSuggestions(food.meals.slice(0, 6));
+      if (food.meals) {
+        setSuggestions(food.meals.slice(0, 6));
+      }
     }
   };
 
@@ -92,13 +96,16 @@ function ProviderSearch({ children }: ProviderSearchProps) {
     const fetchRecipe = async () => {
       const URL_API = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       const data = await getApi(URL_API);
-
-      setRecipeDetailsAPI(data.meals[0]);
+      if (data.meals) {
+        setRecipeDetailsAPI(data.meals[0]);
+      }
     };
     const fetchDrinkAPI = async () => {
       const URL_API = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
       const data = await getApi(URL_API);
-      setRecipeDetailsAPI(data.drinks[0]);
+      if (data.drinks) {
+        setRecipeDetailsAPI(data.drinks[0]);
+      }
     };
     return pathname.includes('meals') ? fetchRecipe() : fetchDrinkAPI();
   };

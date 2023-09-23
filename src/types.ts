@@ -197,3 +197,12 @@ export type RecipeMealsDetails = {
   strYoutube: string
 
 };
+export type FavoriteType = {
+  id: string,
+  type: string,
+  nationality:string,
+  category:string,
+  alcoholicOrNot:string,
+  name: string,
+  image:string,
+};
