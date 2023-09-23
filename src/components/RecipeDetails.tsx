@@ -10,7 +10,6 @@ function RecipeDetails() {
 
   const { id } = useParams();
   const { pathname } = useLocation();
-
   const { getSuggestions, suggestions, getLocalStorageCarrousel,
     doneRecipe, progressRecipe,
     fetchRecipeDetailsAPI, recipeDetailsAPI } = useContext(ContextSearch);
