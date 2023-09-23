@@ -3,6 +3,8 @@ import { useEffect, useState, useContext } from 'react';
 import ContextSearch from '../context/ContextSearch';
 import { FavoriteType } from '../types';
 import '../style/Carrousel.css';
+import WhiteHeart from '../images/whiteHeartIcon.svg';
+import BlackHeart from '../images/blackHeartIcon.svg';
 import ShareIcon from '../images/shareIcon.svg';
 
 function RecipeDetails() {
@@ -34,6 +36,7 @@ function RecipeDetails() {
   const handleClickStart = () => {
     navigate(`/${path}/${id}/in-progress`);
   };
+
   const handleClickCopy = async () => {
     const url = window.location.href;
     try {
@@ -43,6 +46,7 @@ function RecipeDetails() {
       setCopied(false);
     }
   };
+
   const handleClickFavorite = () => {
     if (recipeDetailsAPI && !favorites.some((favorite) => favorite.id === id)) {
       const newFavorite = [...favorites, {
@@ -62,7 +66,7 @@ function RecipeDetails() {
     setFavorites(removeFavorite);
     return localStorage.setItem('favoriteRecipes', JSON.stringify(removeFavorite));
   };
-  console.log(favorites);
+
   useEffect(() => {
     verifyPath();
     getSuggestions(path);
@@ -72,8 +76,7 @@ function RecipeDetails() {
       setFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')));
     }
   }, []);
-  // console.log(favorites);
-  // console.log(recipeDetailsAPI);
+
   const renderIngredientMeasuresDrinks = (recipeDetails) => {
     const listIngredientsMeasures = [];
 
@@ -94,6 +97,7 @@ function RecipeDetails() {
     }
     return listIngredientsMeasures;
   };
+
   const renderIngredientMeasuresMeals = (recipeDetails) => {
     const listIngredientsMeasures = [];
 
@@ -114,6 +118,7 @@ function RecipeDetails() {
     }
     return listIngredientsMeasures;
   };
+
   return (
     <>
       <div>
@@ -189,13 +194,28 @@ function RecipeDetails() {
         <img src={ ShareIcon } alt="" />
 
       </button>
-      <button
-        data-testid="favorite-btn"
-        onClick={ handleClickFavorite }
-      >
-        Favoritar Receita
+      {
+       favorites.some((favorite) => favorite.id.includes(id))
+         ? (
+           <button
+             src={ BlackHeart }
+             data-testid="favorite-btn"
+             onClick={ handleClickFavorite }
+           >
+             <img src={ BlackHeart } alt="Black Heart" />
 
-      </button>
+           </button>)
+         : (
+           <button
+             src={ WhiteHeart }
+             data-testid="favorite-btn"
+             onClick={ handleClickFavorite }
+           >
+             <img src={ WhiteHeart } alt="White Heart" />
+
+           </button>)
+
+      }
       {!doneRecipe.some((recipe) => recipe.id === id)
           && (
             <button
