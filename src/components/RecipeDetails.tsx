@@ -2,10 +2,12 @@ import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import ContextSearch from '../context/ContextSearch';
 import '../style/Carrousel.css';
+import ShareIcon from '../images/shareIcon.svg';
 
 function RecipeDetails() {
   const [thumbnail, setThumbnail] = useState('');
   const [recipeName, setRecipeName] = useState('');
+  const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -30,7 +32,15 @@ function RecipeDetails() {
   const handleClickStart = () => {
     navigate(`/${path}/${id}/in-progress`);
   };
-
+  const handleClickCopy = async () => {
+    const url = window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+    } catch (error) {
+      setCopied(false);
+    }
+  };
   useEffect(() => {
     verifyPath();
     getSuggestions(path);
@@ -145,19 +155,26 @@ function RecipeDetails() {
           </div>
         ))}
       </div>
-      <button data-testid="share-btn">Compartilhar Receita</button>
+      {copied && (<p>Link copied!</p>)}
+      <button
+        data-testid="share-btn"
+        onClick={ handleClickCopy }
+      >
+        <img src={ ShareIcon } alt="" />
+
+      </button>
       <button data-testid="favorite-btn">Favoritar Receita</button>
       {!doneRecipe.some((recipe) => recipe.id === id)
-      && (
-        <button
-          data-testid="start-recipe-btn"
-          className="btnStart"
-          onClick={ handleClickStart }
-        >
-          {!progressRecipe[id]
-            ? 'Start Recipe' : 'Continue Recipe'}
-        </button>
-      )}
+          && (
+            <button
+              data-testid="start-recipe-btn"
+              className="btnStart"
+              onClick={ handleClickStart }
+            >
+              {!progressRecipe[id]
+                ? 'Start Recipe' : 'Continue Recipe'}
+            </button>
+          )}
     </>
   );
 }
