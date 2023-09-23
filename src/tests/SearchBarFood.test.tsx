@@ -75,9 +75,6 @@ describe('Barra de buscas com somente um resultado', () => {
     await user.type(inputSearch, 'chicken');
     await user.click(ingredientFilter);
     // await user.click(btnSearchHearder);
-    // waitFor(() => {
-    //   expect(screen.getByTestId('start-recipe-btn')).toBeInTheDocument();
-    // });
     screen.debug();
   });
 });
