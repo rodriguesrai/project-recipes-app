@@ -1,6 +1,7 @@
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import ContextSearch from '../context/ContextSearch';
+import { FavoriteType } from '../types';
 import '../style/Carrousel.css';
 import ShareIcon from '../images/shareIcon.svg';
 
@@ -8,6 +9,7 @@ function RecipeDetails() {
   const [thumbnail, setThumbnail] = useState('');
   const [recipeName, setRecipeName] = useState('');
   const [copied, setCopied] = useState(false);
+  const [favorites, setFavorites] = useState<FavoriteType[]>([]);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -41,13 +43,32 @@ function RecipeDetails() {
       setCopied(false);
     }
   };
+  const handleClickFavorite = () => {
+    if (recipeDetailsAPI && !favorites.some((favorite) => favorite.id === id)) {
+      const newFavorite = [...favorites, {
+        id,
+        type: path === 'meals' ? 'meal' : 'drink',
+        nationality: path === 'meals' ? recipeDetailsAPI.strArea : '',
+        category: recipeDetailsAPI?.strCategory ? recipeDetailsAPI.strCategory : '',
+        alcoholicOrNot: path === 'meals' ? '' : recipeDetailsAPI.strAlcoholic,
+        name: path === 'meals' ? recipeDetailsAPI.strMeal : recipeDetailsAPI.strDrink,
+        image: path === 'meals' ? recipeDetailsAPI.strMealThumb
+          : recipeDetailsAPI.strDrinkThumb,
+      }];
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorite));
+    }
+  };
   useEffect(() => {
     verifyPath();
     getSuggestions(path);
     getLocalStorageCarrousel(path);
     fetchRecipeDetailsAPI(pathname, id);
-  }, [id]);
-
+    if (localStorage.getItem('favoriteRecipes')) {
+      setFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')));
+    }
+  }, []);
+  // console.log(favorites);
+  // console.log(recipeDetailsAPI);
   const renderIngredientMeasuresDrinks = (recipeDetails) => {
     const listIngredientsMeasures = [];
 
@@ -163,7 +184,13 @@ function RecipeDetails() {
         <img src={ ShareIcon } alt="" />
 
       </button>
-      <button data-testid="favorite-btn">Favoritar Receita</button>
+      <button
+        data-testid="favorite-btn"
+        onClick={ handleClickFavorite }
+      >
+        Favoritar Receita
+
+      </button>
       {!doneRecipe.some((recipe) => recipe.id === id)
           && (
             <button
