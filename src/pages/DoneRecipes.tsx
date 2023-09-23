@@ -29,7 +29,7 @@ const doneRecipes = [
 
 function DoneRecipes() {
   const [filter, setFilter] = useState('all');
-  const [copied, setCopied] = useState(false);
+  const [copiedIndex, setCopiedIndex] = useState(null);
 
   const filteredRecipes = doneRecipes.filter((recipe) => {
     if (filter === 'all') {
@@ -38,14 +38,21 @@ function DoneRecipes() {
     return recipe.type === filter;
   });
 
-  const handleShareClick = (id:string, type: string) => {
+  const handleShareClick = (
+    id: string,
+    type: string,
+    index: React.SetStateAction<null>,
+  ) => {
     const recipeUrl = `${window.location.origin}/${type}s/${id}`;
     navigator.clipboard.writeText(recipeUrl)
       .then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 3000);
+        setCopiedIndex(index);
+        setTimeout(() => {
+          setCopiedIndex(null);
+        }, 3000);
       });
   };
+
   return (
     <>
       <button
@@ -99,7 +106,7 @@ function DoneRecipes() {
           <button
             data-testid={ `${index}-horizontal-share-btn` }
             src={ shareIcon }
-            onClick={ () => handleShareClick(recipe.id, recipe.type) }
+            onClick={ () => handleShareClick(recipe.id, recipe.type, index) }
           >
             <img
               src={ shareIcon }
@@ -107,7 +114,7 @@ function DoneRecipes() {
 
             />
           </button>
-          {copied && <p>Link copied!</p>}
+          {copiedIndex === index && <p>Link copied!</p>}
 
           {recipe.tags.map((tagName, tagIndex) => (
             <p
