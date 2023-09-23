@@ -29,7 +29,7 @@ const doneRecipes = [
 
 function DoneRecipes() {
   const [filter, setFilter] = useState('all');
-  const [copiedIndex, setCopiedIndex] = useState(null);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   const filteredRecipes = doneRecipes.filter((recipe) => {
     if (filter === 'all') {
@@ -41,7 +41,7 @@ function DoneRecipes() {
   const handleShareClick = (
     id: string,
     type: string,
-    index: React.SetStateAction<null>,
+    index: number,
   ) => {
     const recipeUrl = `${window.location.origin}/${type}s/${id}`;
     navigator.clipboard.writeText(recipeUrl)
