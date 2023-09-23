@@ -1,7 +1,6 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
-import { wait } from '@testing-library/user-event/dist/types/utils';
 import App from '../App';
 import ProviderLogin from '../context/ProviderLogin';
 import { renderWithRouter } from '../helpers/renderWithRouter';
@@ -74,7 +73,11 @@ describe('Barra de buscas com somente um resultado', () => {
     const ingredientFilter = screen.getByTestId('ingredient-search-radio');
     await user.type(inputSearch, 'chicken');
     await user.click(ingredientFilter);
-    // await user.click(btnSearchHearder);
+    await user.click(btnSearchHearder);
+    // const buttonFav = screen.getByRole('button', {
+    //   name: /favoritar receita/i,
+    // });
+    // expect();
     screen.debug();
   });
 });

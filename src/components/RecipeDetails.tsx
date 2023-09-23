@@ -100,7 +100,8 @@ function RecipeDetails() {
                   data-testid="video"
                   width="560"
                   height="315"
-                  src={ recipeDetailsAPI.strYoutube.replace('watch?v=', 'embed/') }
+                  src={ recipeDetailsAPI.strYoutube
+                    && recipeDetailsAPI.strYoutube.replace('watch?v=', 'embed/') }
                   title={ recipeDetailsAPI.strMeal }
                 />
               </div>
