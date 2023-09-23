@@ -29,9 +29,10 @@ describe('Verifica funcionalidades na tela Meals', () => {
       </ProviderRecipes>,
       { route: '/meals' },
     );
-    // const chickenCategory = await screen.getByRole('button', { name: /chicken/i });
-    // await user.click(chickenCategory);
-    // expect(await screen.findByText(/ayam percik/i)).toBeInTheDocument();
+
+    const chickenCategory = await screen.findByRole('button', { name: /chicken/i });
+    await user.click(chickenCategory);
+    expect(await screen.findByText(/ayam percik/i)).toBeInTheDocument();
     const resetFilter = await screen.findByTestId('All-category-filter');
     await user.click(resetFilter);
   });
