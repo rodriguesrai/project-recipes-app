@@ -9,6 +9,7 @@ function RecipeDetails() {
   const navigate = useNavigate();
 
   const { id } = useParams();
+
   const { pathname } = useLocation();
   const { getSuggestions, suggestions, getLocalStorageCarrousel,
     doneRecipe, progressRecipe,
