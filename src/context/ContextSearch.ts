@@ -16,7 +16,8 @@ type ContextSearchType = {
   progressRecipe: boolean,
   fetchRecipeDetailsAPI: (pathname: string, id: string | undefined) => Promise<void>,
   recipeDetailsAPI: RecipeMealsDetails | undefined,
-
+  showForm: boolean,
+  setShowForm: (arg: any) => void,
 };
 const ContextSearch = createContext({} as ContextSearchType);
 
