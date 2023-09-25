@@ -34,7 +34,7 @@ function RecipeInProgress() {
   const areAllChecked = () => {
     return Object.values(checkedIngredients).every((isChecked) => isChecked);
   };
-
+  //!
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     const ingredientName = event.target.name;
     const isChecked = event.target.checked;
