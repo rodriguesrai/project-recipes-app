@@ -74,7 +74,10 @@ describe('Barra de buscas com somente um resultado', () => {
     await user.type(inputSearch, 'chicken');
     await user.click(ingredientFilter);
     await user.click(btnSearchHearder);
-    /* expect(screen.getByText('Brown Stew Chicken')).toBeInTheDocument(); */
+    // const buttonFav = screen.getByRole('button', {
+    //   name: /favoritar receita/i,
+    // });
+    // expect();
     screen.debug();
   });
 });

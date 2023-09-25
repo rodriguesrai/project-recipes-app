@@ -1,11 +1,11 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import { useContext } from 'react';
 import SearchBar from './SearchBar';
 import ProfileIcon from '../images/profileIcon.svg';
+import ContextSearch from '../context/ContextSearch';
 
 function Header() {
   const location = useLocation();
-  // const showSearchIcon = !['/profile', '/done-recipes', '/favorite-recipes']
-  //   .includes(location.pathname);
 
   const getTitle = () => {
     switch (location.pathname) {
@@ -23,6 +23,7 @@ function Header() {
         return '';
     }
   };
+
   return (
     <>
       <header>
@@ -34,16 +35,6 @@ function Header() {
             data-testid="profile-top-btn"
           />
         </Link>
-        {/* {showSearchIcon && (
-          <>
-            <img
-              src={ SearchIcon }
-              alt="Search"
-              data-testid="search-top-btn"
-            />
-            <SearchBar />
-          </>
-        )} */}
         <SearchBar />
       </header>
       <main>

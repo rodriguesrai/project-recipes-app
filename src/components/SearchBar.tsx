@@ -1,11 +1,10 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ContextSearch from '../context/ContextSearch';
 import SearchIcon from '../images/searchIcon.svg';
 
 function SearchBar() {
-  const [showForm, setShowForm] = useState(false);
-  const { handleChange, handleSubmit, apiValue,
+  const { handleChange, handleSubmit, apiValue, showForm, setShowForm,
   } = useContext(ContextSearch);
 
   const navigate = useNavigate();
