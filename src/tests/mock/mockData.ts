@@ -217,3 +217,34 @@ export const mockDataDrinksOne = { drinks: [
     strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/1xhjk91504783763.jpg',
     idDrink: '17220',
   }] };
+
+// export const mockDataCategories = [
+//   {
+//     strCategory: 'Ordinary Drink',
+//   },
+//   {
+//     strCategory: 'Cocktail',
+//   },
+//   {
+//     strCategory: 'Shake',
+//   },
+//   {
+//     strCategory: 'Other/Unknown',
+//   },
+//   {
+//     strCategory: 'Cocoa',
+//   },
+//   {
+//     strCategory: 'Shot',
+//   },
+//   {
+//     strCategory: 'Coffee / Tea',
+//   },
+//   {
+//     strCategory: 'Homemade Liqueur',
+//   },
+//   {
+//     strCategory: 'Punch / Party Drink',
+//   },
+//   {
+//     strCategory: 'Beer',

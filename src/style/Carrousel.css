@@ -1,0 +1,13 @@
+.carrouselContainer {
+  display: flex;
+  overflow-x: auto;
+}
+
+.imgCarrousel {
+  width: 200px;
+}
+
+.btnStart {
+  bottom: 0;
+  position: fixed;
+}
