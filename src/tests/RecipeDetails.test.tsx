@@ -128,6 +128,19 @@ describe('Testando a pagina de detalhes de uma receita', () => {
     expect(linkCopy).toBeInTheDocument();
   });
   test('Testa o botão de favoritar', async () => {
+    // const expectedFavoriteRecipes = [
+    //   {
+    //     id: '52771',
+    //     type: 'meal',
+    //     nationality: 'Italian',
+    //     category: 'Vegetarian',
+    //     alcoholicOrNot: '',
+    //     name: 'Spicy Arrabiata Penne',
+    //     image:
+    //       'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+    //   },
+    // ];
+    // localStorage.setItem('favoriteRecipes', JSON.stringify(expectedFavoriteRecipes as string));
     const { user } = renderWithRouter(
       <ProviderRecipes>
         <ProviderLogin>
@@ -138,6 +151,7 @@ describe('Testando a pagina de detalhes de uma receita', () => {
       </ProviderRecipes>,
       { route: '/meals' },
     );
+
     const firstRecipe = await screen.findByTestId(firstRecipeTestId);
     expect(firstRecipe).toBeInTheDocument();
 
@@ -155,7 +169,17 @@ describe('Testando a pagina de detalhes de uma receita', () => {
     expect(blackHeart).toBeInTheDocument();
 
     await user.click(blackHeart);
+    await user.click(buttonFavorite);
 
-    expect(buttonFavorite).toBeInTheDocument();
+    const voltarButton = await screen.findByText('Voltar');
+    expect(voltarButton).toBeInTheDocument();
+
+    await user.click(voltarButton);
+
+    expect(await screen.findByText('Corba')).toBeInTheDocument();
+
+    await user.click(await screen.findByText('Corba'));
+    screen.debug();
+    // expect(blackHeart).toBeInTheDocument();
   });
 });
