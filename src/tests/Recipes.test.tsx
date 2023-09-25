@@ -60,10 +60,10 @@ describe('Verifica funcionalidades na tela Meals', () => {
       </ProviderRecipes>,
       { route: '/drinks' },
     );
-    const cocoaCategory = await screen.queryByTestId('Cocoa-category-filter');
-    await user.click(cocoaCategory);
-    expect(await screen.queryByText(/castillian hot chocolate/i)).toBeInTheDocument();
-    const resetFilter = await screen.queryByTestId('All-category-filter');
+    const chickenCategory = await screen.findByTestId('Cocktail-castegory-filter');
+    await user.click(chickenCategory);
+    expect(await screen.findByText(/155 belmont/i)).toBeInTheDocument();
+    const resetFilter = await screen.findByTestId('All-category-filter');
     await user.click(resetFilter);
   });
 });
