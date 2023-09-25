@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import ContextSearch from './ContextSearch';
 import { SearchParmType, ApiReturnDrinks,
   ApiReturnTypeMeals, CarrouselIndexType, RecipeMealsDetails } from '../types';
@@ -21,10 +22,15 @@ function ProviderSearch({ children }: ProviderSearchProps) {
   ApiReturnTypeMeals[]>([]);
   const [doneRecipe, setDoneRecipe] = useState([]);
   const [progressRecipe, setProgressRecipe] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
+  const locationURL = useLocation();
   const { getApi } = useFetch();
   const recepiSuggestion = useFetch();
 
+  useEffect(() => {
+    setShowForm(false);
+  }, [locationURL.pathname]);
   const handleChange = (event:
   React
     .ChangeEvent<HTMLInputElement>) => {
@@ -130,6 +136,8 @@ function ProviderSearch({ children }: ProviderSearchProps) {
     progressRecipe,
     fetchRecipeDetailsAPI,
     recipeDetailsAPI,
+    showForm,
+    setShowForm,
   };
 
   return (
