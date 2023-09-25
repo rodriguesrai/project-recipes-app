@@ -59,11 +59,7 @@ describe('Verifica funcionalidades na tela Meals', () => {
       </ProviderRecipes>,
       { route: '/drinks' },
     );
-<<<<<<< HEAD
-    const chickenCategory = await screen.findByTestId('Cocktail-castegory-filter');
-=======
     const chickenCategory = await screen.findByTestId('Cocktail-category-filter');
->>>>>>> e5c84070db61b7d0d68b681ca58ef98d801b3e87
     await user.click(chickenCategory);
     expect(await screen.findByText(/155 belmont/i)).toBeInTheDocument();
     const resetFilter = await screen.findByTestId('All-category-filter');
