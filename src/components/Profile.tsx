@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ContextLogin from '../context/ContextLogin';
 
-type ProfileProps = {
-  email: string | null;
-};
-
-function Profile({ email }: ProfileProps) {
+function Profile() {
   const navigate = useNavigate();
-  const [currentEmail, setCurrentEmail] = useState<string | null>(email);
+  const { login } = useContext(ContextLogin);
+  const [currentEmail, setCurrentEmail] = useState<string | null>(login.email);
 
   const checkAndUpdateEmail = () => {
     const storedEmail = localStorage.getItem('user');

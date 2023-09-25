@@ -20,7 +20,7 @@ function App() {
         <Route path="/" element={ <Footer /> }>
           <Route path=":category" element={ <Recipes /> } />
           <Route path=":category" element={ <Recipes /> } />
-          <Route path="/profile" element={ <Profile email={ null } /> } />
+          <Route path="/profile" element={ <Profile /> } />
         </Route>
         <Route path="/done-recipes" element={ <DoneRecipes /> } />
         <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
