@@ -4,7 +4,6 @@ import ContextSearch from '../context/ContextSearch';
 import BlackHeart from '../images/blackHeartIcon.svg';
 import ShareIcon from '../images/shareIcon.svg';
 import { FavoriteType } from '../types';
-import '../style/FavoriteRecipes.css';
 
 function FavoriteRecipes() {
   const { setFavorites, favorites, handleClickFavorite } = useContext(ContextSearch);
