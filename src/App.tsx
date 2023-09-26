@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
 import Header from './components/Header';
 import Recipes from './components/Recipes';
-import Profile from './pages/Profile';
+import Profile from './components/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './components/RecipeDetails';
