@@ -18,7 +18,16 @@ function DoneRecipes() {
     }
     return recipe.type === filter;
   });
-
+  function formatDoneDate(dateString) {
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric' };
+    return new Date(dateString).toLocaleDateString('pt-BR', options);
+  }
   const handleShareClick = (
     id: string,
     type: string,
@@ -83,7 +92,12 @@ function DoneRecipes() {
               {recipe.alcoholicOrNot}
             </p>
           )}
-          <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
+          <p
+            data-testid={ `${index}-horizontal-done-date` }
+          >
+            {formatDoneDate(recipe.doneDate)}
+
+          </p>
           <button
             data-testid={ `${index}-horizontal-share-btn` }
             src={ shareIcon }
