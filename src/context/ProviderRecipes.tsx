@@ -26,7 +26,6 @@ function ProviderRecipes({ children }: ProviderRecipesProps) {
       setRecipeFilters(filters.drinks.slice(0, 5));
     }
   };
-
   const fetchFilteredData = async (value: string, category: string | undefined) => {
     let filteredData = [];
     if (category === 'meals') {
@@ -53,6 +52,7 @@ function ProviderRecipes({ children }: ProviderRecipesProps) {
     recipeFilters,
     handleClick,
     apiData,
+
   };
   return (
     <ContextRecipes.Provider value={ values }>

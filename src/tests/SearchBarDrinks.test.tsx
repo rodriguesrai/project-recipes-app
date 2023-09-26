@@ -36,6 +36,6 @@ describe('Barra de buscas para bebidas', async () => {
     const btnIngrdient = screen.getByTestId('name-search-radio');
     await user.click(btnIngrdient);
     await user.click(btnSearchHearder);
-    screen.debug();
+    // screen.debug();
   });
 });

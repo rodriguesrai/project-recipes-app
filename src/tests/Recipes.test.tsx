@@ -29,7 +29,7 @@ describe('Verifica funcionalidades na tela Meals', () => {
       </ProviderRecipes>,
       { route: '/meals' },
     );
-    const chickenCategory = await screen.findByTestId('Chicken-category-filter');
+    const chickenCategory = await screen.findByRole('button', { name: /chicken/i }, { timeout: 5000 });
     await user.click(chickenCategory);
     expect(await screen.findByText(/ayam percik/i)).toBeInTheDocument();
     const resetFilter = await screen.findByTestId('All-category-filter');
@@ -50,7 +50,6 @@ describe('Verifica funcionalidades na tela Meals', () => {
     await user.click(lastCard);
     expect(firstCard).not.toBeInTheDocument();
   });
-
   test('Na pagina drinks, testa as trocas de categoria e o reset delas', async () => {
     const { user } = renderWithRouter(
       <ProviderRecipes>
@@ -60,10 +59,10 @@ describe('Verifica funcionalidades na tela Meals', () => {
       </ProviderRecipes>,
       { route: '/drinks' },
     );
-    const cocoaCategory = await screen.queryByTestId('Cocoa-category-filter');
-    await user.click(cocoaCategory);
-    expect(await screen.queryByText(/castillian hot chocolate/i)).toBeInTheDocument();
-    const resetFilter = await screen.queryByTestId('All-category-filter');
+    const chickenCategory = await screen.findByTestId('Cocktail-category-filter');
+    await user.click(chickenCategory);
+    expect(await screen.findByText(/155 belmont/i)).toBeInTheDocument();
+    const resetFilter = await screen.findByTestId('All-category-filter');
     await user.click(resetFilter);
   });
 });

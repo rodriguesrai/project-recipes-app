@@ -4,8 +4,6 @@ import ProfileIcon from '../images/profileIcon.svg';
 
 function Header() {
   const location = useLocation();
-  // const showSearchIcon = !['/profile', '/done-recipes', '/favorite-recipes']
-  //   .includes(location.pathname);
 
   const getTitle = () => {
     switch (location.pathname) {
@@ -23,6 +21,7 @@ function Header() {
         return '';
     }
   };
+
   return (
     <>
       <header>
@@ -34,16 +33,6 @@ function Header() {
             data-testid="profile-top-btn"
           />
         </Link>
-        {/* {showSearchIcon && (
-          <>
-            <img
-              src={ SearchIcon }
-              alt="Search"
-              data-testid="search-top-btn"
-            />
-            <SearchBar />
-          </>
-        )} */}
         <SearchBar />
       </header>
       <main>

@@ -5,7 +5,6 @@ import ContextLogin from '../context/ContextLogin';
 function Login() {
   const { login, disable, handleChange, handleSubmit } = useContext(ContextLogin);
   const navigate = useNavigate();
-
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleSubmit();

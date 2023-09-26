@@ -1,7 +1,4 @@
-import React from 'react';
 import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { vi } from 'vitest';
 import App from '../App';
 import ProviderLogin from '../context/ProviderLogin';
 import { renderWithRouter } from '../helpers/renderWithRouter';

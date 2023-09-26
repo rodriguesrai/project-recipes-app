@@ -5,12 +5,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
 import Header from './components/Header';
 import Recipes from './components/Recipes';
-import Profile from './pages/Profile';
+import Profile from './components/Profile';
 import DoneRecipes from './pages/DoneRecipes';
-import FavoriteRecipes from './pages/FavoriteRecipes';
-import Recipe from './components/Recipe';
+import FavoriteRecipes from './components/FavoriteRecipes';
+import RecipeDetails from './components/RecipeDetails';
 import Footer from './components/Footer';
-import RecipeDrinks from './components/RecipeDrinks';
+import RecipeInProgress from './components/RecipeInProgress';
+// import RecipeDrinks from './components/RecipeDrinks';
 
 function App() {
   return (
@@ -25,12 +26,10 @@ function App() {
         <Route path="/done-recipes" element={ <DoneRecipes /> } />
         <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
       </Route>
-      {/* Os componentes das rotas restantes podem ser alteradas de acodo com os requisitos */}
-
-      <Route path="/meals/:id-da-receita" element={ <Recipe /> } />
-      <Route path="/drinks/:id-da-receita" element={ <RecipeDrinks /> } />
-      <Route path="/meals/:id-da-receita/in-progress" element={ <Recipe /> } />
-      <Route path="/drinks/:id-da-receita/in-progress" element={ <Recipe /> } />
+      <Route path="/meals/:id" element={ <RecipeDetails /> } />
+      <Route path="/drinks/:id" element={ <RecipeDetails /> } />
+      <Route path="/meals/:id/in-progress" element={ <RecipeInProgress /> } />
+      <Route path="/drinks/:id/in-progress" element={ <RecipeInProgress /> } />
 
     </Routes>
   );
