@@ -38,8 +38,8 @@ function Recipes() {
     );
   }
 
-  const getIcon = (category) => {
-    switch (category) {
+  const getIcon = (categories) => {
+    switch (categories) {
       case 'Beef':
         return Beef;
       case 'Breakfast':
