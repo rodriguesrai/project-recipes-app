@@ -19,11 +19,6 @@ function DoneRecipes() {
     return recipe.type === filter;
   });
 
-  function formatDoneDate(dateString) {
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    return new Date(dateString).toLocaleDateString('pt-BR', options);
-  }
-
   const handleShareClick = (
     id: string,
     type: string,
@@ -91,7 +86,7 @@ function DoneRecipes() {
           <p
             data-testid={ `${index}-horizontal-done-date` }
           >
-            {formatDoneDate(recipe.doneDate)}
+            {recipe.doneDate}
 
           </p>
           <button
