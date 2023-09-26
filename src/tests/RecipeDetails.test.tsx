@@ -179,7 +179,7 @@ describe('Testando a pagina de detalhes de uma receita', () => {
     expect(await screen.findByText('Corba')).toBeInTheDocument();
 
     await user.click(await screen.findByText('Corba'));
-    screen.debug();
-    // expect(blackHeart).toBeInTheDocument();
+
+    expect(await screen.findByRole('img', { name: /black heart/i })).toBeInTheDocument();
   });
 });
