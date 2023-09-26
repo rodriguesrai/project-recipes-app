@@ -1,4 +1,3 @@
-import React from 'react';
 import { screen } from '@testing-library/react';
 import Profile from '../components/Profile';
 import { renderWithRouter } from '../helpers/renderWithRouter';
@@ -9,7 +8,7 @@ const route = '/profile';
 
 describe('Profile', () => {
   test('Verifica se o email é renderizado corretamente', () => {
-    const { user } = renderWithRouter(
+    renderWithRouter(
       <ProviderLogin>
         <Profile />
       </ProviderLogin>,
@@ -21,7 +20,7 @@ describe('Profile', () => {
   });
 
   test('Verifica se, quando não tem email disponível, tem mensagem de erro', () => {
-    const { user } = renderWithRouter(
+    renderWithRouter(
       <ProviderLogin>
         <Profile />
       </ProviderLogin>,

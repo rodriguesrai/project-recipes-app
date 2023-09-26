@@ -1,7 +1,6 @@
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import ContextSearch from '../context/ContextSearch';
-import { FavoriteType } from '../types';
 import '../style/Carrousel.css';
 import WhiteHeart from '../images/whiteHeartIcon.svg';
 import BlackHeart from '../images/blackHeartIcon.svg';

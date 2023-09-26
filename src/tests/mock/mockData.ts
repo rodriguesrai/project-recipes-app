@@ -218,33 +218,23 @@ export const mockDataDrinksOne = { drinks: [
     idDrink: '17220',
   }] };
 
-// export const mockDataCategories = [
-//   {
-//     strCategory: 'Ordinary Drink',
-//   },
-//   {
-//     strCategory: 'Cocktail',
-//   },
-//   {
-//     strCategory: 'Shake',
-//   },
-//   {
-//     strCategory: 'Other/Unknown',
-//   },
-//   {
-//     strCategory: 'Cocoa',
-//   },
-//   {
-//     strCategory: 'Shot',
-//   },
-//   {
-//     strCategory: 'Coffee / Tea',
-//   },
-//   {
-//     strCategory: 'Homemade Liqueur',
-//   },
-//   {
-//     strCategory: 'Punch / Party Drink',
-//   },
-//   {
-//     strCategory: 'Beer',
+export const favoriteRecipes = [
+  {
+    id: '52771',
+    type: 'meal',
+    nationality: 'Italian',
+    category: 'Vegetarian',
+    alcoholicOrNot: '',
+    name: 'Spicy Arrabiata Penne',
+    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+  },
+  {
+    id: '178319',
+    type: 'drink',
+    nationality: '',
+    category: 'Cocktail',
+    alcoholicOrNot: 'Alcoholic',
+    name: 'Aquamarine',
+    image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+  },
+];
