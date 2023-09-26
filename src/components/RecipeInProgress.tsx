@@ -53,7 +53,9 @@ function RecipeInProgress() {
       setFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')));
     }
   }, []);
+
   const handleSubmit = () => {
+    console.log(category);
     const newDoneRecipe = {
       id: category === 'meals' ? recipeDetailsAPI?.idMeal : recipeDetailsAPI?.idDrink,
       nationality: category === 'meals' ? recipeDetailsAPI?.strArea : '',

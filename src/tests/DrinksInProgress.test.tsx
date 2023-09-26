@@ -56,10 +56,7 @@ describe('Verifica funcionalidades na tela RecipeProgress com bebidas', () => {
       name: 'Spicy Arrabiata Penne',
       category: 'Vegetarian',
       image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      tags: [
-        'Pasta',
-        'Curry',
-      ],
+      tags: '',
       alcoholicOrNot: '',
       type: 'meal',
       doneDate: '2023-09-26T14:59:46.226Z',

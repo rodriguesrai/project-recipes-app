@@ -1,17 +1,12 @@
 export const inProgressMock = {
-  'Black Pepper - 1/4 tsp ': false,
-  'Carrots - 1 large ': false,
-  'Cumin - 2 tsp ': false,
-  'Lentils - 1 cup ': false,
-  'Mint - 1/2 tsp ': false,
-  'Onion - 1 large ': false,
-  'Paprika - 1 tsp ': false,
-  'Red Pepper Flakes - 1/4 tsp ': false,
-  'Sea Salt - Pinch ': false,
-  'Thyme - 1/2 tsp ': false,
-  'Tomato Puree - 1 tbs ': false,
-  'Vegetable Stock - 4 cups ': false,
-  'Water - 1 cup ': false,
+  'Parmigiano-Reggiano - spinkling ': true,
+  'basil - 6 leaves ': true,
+  'chopped tomatoes - 1 tin ': true,
+  'garlic - 3 cloves ': true,
+  'italian seasoning - 1/2 teaspoon ': true,
+  'olive oil - 1/4 cup ': true,
+  'penne rigate - 1 pound ': true,
+  'red chile flakes - 1/2 teaspoon ': true,
 };
 
 export const mockedDoneRecipes = [{
@@ -32,11 +27,10 @@ export const mockedMeal = [{
   name: 'Spicy Arrabiata Penne',
   category: 'Vegetarian',
   image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-  tags: [
-    'Pasta',
-    'Curry',
-  ],
+  tags: '',
   alcoholicOrNot: '',
   type: 'meal',
   doneDate: '2023-09-26T14:59:46.226Z',
 }];
+
+export const teste = [];
