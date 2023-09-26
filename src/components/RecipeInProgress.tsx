@@ -55,7 +55,6 @@ function RecipeInProgress() {
   }, []);
 
   const handleSubmit = () => {
-    console.log(category);
     const newDoneRecipe = {
       id: category === 'meals' ? recipeDetailsAPI?.idMeal : recipeDetailsAPI?.idDrink,
       nationality: category === 'meals' ? recipeDetailsAPI?.strArea : '',
@@ -67,11 +66,7 @@ function RecipeInProgress() {
         ? recipeDetailsAPI.strTags.split(',').map((tag) => tag.trim()) : [],
       alcoholicOrNot: category === 'meals' ? '' : recipeDetailsAPI?.strAlcoholic,
       type: category === 'meals' ? 'meal' : 'drink',
-      doneDate: new Date().toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-      }),
+      doneDate: new Date().toISOString(),
     };
 
     const existingDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];

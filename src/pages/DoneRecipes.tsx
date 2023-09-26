@@ -102,7 +102,7 @@ function DoneRecipes() {
           </button>
           {copiedIndex === index && <p>Link copied!</p>}
 
-          {recipe.tags.map((tagName, tagIndex) => (
+          {recipe.tags.length > 0 && recipe.tags.map((tagName, tagIndex) => (
             <p
               key={ tagIndex }
               data-testid={ `${index}-${tagName}-horizontal-tag` }
