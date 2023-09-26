@@ -9,72 +9,57 @@ function RecipeInProgress() {
   const { fetchRecipeDetailsAPI, recipeDetailsAPI,
     ingredientsAndMeasureList, locationURL,
     handleClickFavorite, favorites, setFavorites } = useContext(ContextSearch);
-
-  const filteredList = ingredientsAndMeasureList
-    .filter((ingredient: string) => !ingredient.includes('null - null'));
-
-  const initialCheckedIngredients = filteredList.reduce((acc, ingredient) => {
-    acc[ingredient] = false;
-    return acc;
-  }, {});
-
-  const [checkedIngredients, setCheckedIngredients] = useState(() => {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    return inProgressRecipes || initialCheckedIngredients;
-  });
-
+  const [checkedIngredients, setCheckedIngredients] = useState({});
   const [copied, setCopied] = useState(false);
-
   const navigate = useNavigate();
   const { id } = useParams();
-
   const category = locationURL.pathname.split('/')[1];
-  console.log(category);
-
   const areAllChecked = () => {
     return Object.values(checkedIngredients).every((isChecked) => isChecked);
   };
-  //!
+
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     const ingredientName = event.target.name;
     const isChecked = event.target.checked;
-
     const updatedIngredients = {
       ...checkedIngredients,
       [ingredientName]: isChecked,
     };
     setCheckedIngredients(updatedIngredients);
-
     localStorage.setItem('inProgressRecipes', JSON.stringify(updatedIngredients));
   };
-
+  const filteredList = ingredientsAndMeasureList
+    .filter((ingredient: string) => !ingredient.includes('null - null'));
   useEffect(() => {
-    fetchRecipeDetailsAPI(category, locationURL.pathname.split('/')[2]);
-
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if (!inProgressRecipes) {
+    const initialCheckedIngredients = filteredList.reduce((acc, ingredient) => {
+      acc[ingredient] = false;
+      return acc;
+    }, {});
+    setCheckedIngredients(initialCheckedIngredients);
+    const responseLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (responseLocalStorage) {
+      setCheckedIngredients(responseLocalStorage);
+    }
+    if (ingredientsAndMeasureList.length > 0 && !responseLocalStorage) {
       localStorage.setItem(
         'inProgressRecipes',
         JSON.stringify(initialCheckedIngredients),
       );
     }
-
+  }, [ingredientsAndMeasureList]);
+  useEffect(() => {
+    fetchRecipeDetailsAPI(category, locationURL.pathname.split('/')[2]);
     if (localStorage.getItem('favoriteRecipes')) {
       setFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')));
     }
-  }, [checkedIngredients]);
-
+  }, []);
   const handleSubmit = () => {
     const existingDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-
     const dateNow = new Date();
-
     let tags: string[] = [];
     if (recipeDetailsAPI?.strTags) {
       tags = recipeDetailsAPI.strTags.split(',').map((tag) => tag.trim());
     }
-
     const newDoneRecipe = {
       id: category === 'meals' ? recipeDetailsAPI?.idMeal : recipeDetailsAPI?.idDrink,
       nationality: category === 'meals' ? recipeDetailsAPI?.strArea : '',
@@ -88,12 +73,10 @@ function RecipeInProgress() {
       type: category === 'meals' ? 'meal' : 'drink',
       doneDate: dateNow.toISOString(),
     };
-
     const updatedDoneRecipes = [...existingDoneRecipes, newDoneRecipe];
     localStorage.setItem('doneRecipes', JSON.stringify(updatedDoneRecipes));
     navigate('/done-recipes');
   };
-
   const handleClickCopy = async () => {
     const url = window.location.href.split('/').splice(0, 5).join('/');
     try {
@@ -103,7 +86,6 @@ function RecipeInProgress() {
       setCopied(false);
     }
   };
-
   return (
     <div>
       <img
@@ -128,7 +110,6 @@ function RecipeInProgress() {
              onClick={ () => handleClickFavorite(category, id) }
            >
              <img src={ BlackHeart } alt="Black Heart" />
-
            </button>)
          : (
            <button
@@ -137,16 +118,14 @@ function RecipeInProgress() {
              onClick={ () => handleClickFavorite(category, id) }
            >
              <img src={ WhiteHeart } alt="White Heart" />
-
            </button>)
-
       }
       <h3 data-testid="recipe-category">
         {category === 'meals'
           ? recipeDetailsAPI?.strCategory : recipeDetailsAPI?.strAlcoholic}
       </h3>
       <div data-testid="instructions" className="ingredients-container">
-        {filteredList.map((ingredient, index) => (
+        {filteredList.length > 0 && filteredList.map((ingredient, index) => (
           <label
             data-testid={ `${index}-ingredient-step` }
             key={ index }
@@ -173,10 +152,8 @@ function RecipeInProgress() {
         disabled={ !areAllChecked() }
       >
         Finalizar
-
       </button>
     </div>
   );
 }
-
 export default RecipeInProgress;
