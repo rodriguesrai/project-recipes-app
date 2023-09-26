@@ -7,7 +7,7 @@ import Header from './components/Header';
 import Recipes from './components/Recipes';
 import Profile from './components/Profile';
 import DoneRecipes from './pages/DoneRecipes';
-import FavoriteRecipes from './pages/FavoriteRecipes';
+import FavoriteRecipes from './components/FavoriteRecipes';
 import RecipeDetails from './components/RecipeDetails';
 import Footer from './components/Footer';
 import RecipeInProgress from './components/RecipeInProgress';
