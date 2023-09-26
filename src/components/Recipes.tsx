@@ -10,7 +10,7 @@ function Recipes() {
   } = useContext(ContextRecipes);
   const navigate = useNavigate();
   const { category } = useParams();
-  const { showFilter, apiValue } = useContext(ContextSearch);
+  const { showFilter } = useContext(ContextSearch);
   useEffect(() => {
     fetchRecipes(category);
   }, [category]);

@@ -1,8 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { useContext } from 'react';
 import SearchBar from './SearchBar';
 import ProfileIcon from '../images/profileIcon.svg';
-import ContextSearch from '../context/ContextSearch';
 
 function Header() {
   const location = useLocation();

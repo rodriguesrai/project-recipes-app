@@ -9,5 +9,4 @@ const localStorageMock = {
     delete localStorage[key];
   },
 };
-
 export default localStorageMock;
