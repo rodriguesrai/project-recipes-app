@@ -11,14 +11,14 @@ function RecipeDetails() {
   const [thumbnail, setThumbnail] = useState('');
   const [recipeName, setRecipeName] = useState('');
   const [copied, setCopied] = useState(false);
-  const [favorites, setFavorites] = useState<FavoriteType[]>([]);
   const navigate = useNavigate();
   const { id } = useParams();
 
   const { pathname } = useLocation();
   const { getSuggestions, suggestions, getLocalStorageCarrousel,
     doneRecipe, progressRecipe,
-    fetchRecipeDetailsAPI, recipeDetailsAPI } = useContext(ContextSearch);
+    fetchRecipeDetailsAPI, recipeDetailsAPI, favorites,
+    handleClickFavorite, setFavorites } = useContext(ContextSearch);
 
   const path: string = pathname.split('/')[1];
 
@@ -41,26 +41,6 @@ function RecipeDetails() {
     const url = window.location.href;
     await navigator.clipboard.writeText(url);
     setCopied(true);
-  };
-
-  const handleClickFavorite = () => {
-    if (recipeDetailsAPI && !favorites.some((favorite) => favorite.id === id)) {
-      const newFavorite = [...favorites, {
-        id,
-        type: path === 'meals' ? 'meal' : 'drink',
-        nationality: path === 'meals' ? recipeDetailsAPI.strArea : '',
-        category: recipeDetailsAPI?.strCategory ? recipeDetailsAPI.strCategory : '',
-        alcoholicOrNot: path === 'meals' ? '' : recipeDetailsAPI.strAlcoholic,
-        name: path === 'meals' ? recipeDetailsAPI.strMeal : recipeDetailsAPI.strDrink,
-        image: path === 'meals' ? recipeDetailsAPI.strMealThumb
-          : recipeDetailsAPI.strDrinkThumb,
-      }];
-      setFavorites(newFavorite);
-      return localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorite));
-    }
-    const removeFavorite = favorites.filter((favorite) => favorite.id !== id);
-    setFavorites(removeFavorite);
-    return localStorage.setItem('favoriteRecipes', JSON.stringify(removeFavorite));
   };
 
   useEffect(() => {
@@ -197,7 +177,7 @@ function RecipeDetails() {
            <button
              src={ BlackHeart }
              data-testid="favorite-btn"
-             onClick={ handleClickFavorite }
+             onClick={ () => handleClickFavorite(path, id) }
            >
              <img src={ BlackHeart } alt="Black Heart" />
 
@@ -206,7 +186,7 @@ function RecipeDetails() {
            <button
              src={ WhiteHeart }
              data-testid="favorite-btn"
-             onClick={ handleClickFavorite }
+             onClick={ () => handleClickFavorite(path, id) }
            >
              <img src={ WhiteHeart } alt="White Heart" />
 

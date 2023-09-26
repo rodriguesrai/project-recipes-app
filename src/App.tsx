@@ -10,6 +10,7 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './components/RecipeDetails';
 import Footer from './components/Footer';
+import RecipeInProgress from './components/RecipeInProgress';
 // import RecipeDrinks from './components/RecipeDrinks';
 
 function App() {
@@ -27,8 +28,8 @@ function App() {
       </Route>
       <Route path="/meals/:id" element={ <RecipeDetails /> } />
       <Route path="/drinks/:id" element={ <RecipeDetails /> } />
-      <Route path="/meals/:id/in-progress" element={ <RecipeDetails /> } />
-      <Route path="/drinks/:id/in-progress" element={ <RecipeDetails /> } />
+      <Route path="/meals/:id/in-progress" element={ <RecipeInProgress /> } />
+      <Route path="/drinks/:id/in-progress" element={ <RecipeInProgress /> } />
 
     </Routes>
   );

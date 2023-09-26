@@ -52,6 +52,7 @@ function ProviderRecipes({ children }: ProviderRecipesProps) {
     recipeFilters,
     handleClick,
     apiData,
+
   };
   return (
     <ContextRecipes.Provider value={ values }>

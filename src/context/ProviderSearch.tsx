@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ContextSearch from './ContextSearch';
 import { SearchParmType, ApiReturnDrinks,
-  ApiReturnTypeMeals, CarrouselIndexType, RecipeMealsDetails } from '../types';
+  ApiReturnTypeMeals, FavoriteType, RecipeMealsDetails } from '../types';
 import useFetch from '../hooks/useFetch';
 
 type ProviderSearchProps = {
@@ -23,6 +23,9 @@ function ProviderSearch({ children }: ProviderSearchProps) {
   const [doneRecipe, setDoneRecipe] = useState([]);
   const [progressRecipe, setProgressRecipe] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [ingredientsAndMeasureList,
+    setIngredientsAndMeasureList] = useState<string[]>([]);
+  const [favorites, setFavorites] = useState<FavoriteType[]>([]);
 
   const locationURL = useLocation();
   const { getApi } = useFetch();
@@ -104,13 +107,36 @@ function ProviderSearch({ children }: ProviderSearchProps) {
       const data = await getApi(URL_API);
       if (data.meals) {
         setRecipeDetailsAPI(data.meals[0]);
+        const ingredients = Object.keys(data.meals[0])
+          .filter((key) => key.includes('strIngredient'));
+        const measure = (Object.keys(data.meals[0])
+          .filter((key) => key.includes('strMeasure')));
+        const ingredientsAndMeasure = ingredients.map((ingredient, index) => {
+          if (data.meals[0][ingredient] !== '') {
+            return `${data.meals[0][ingredient]} - ${data.meals[0][measure[index]]} `;
+          }
+          return '';
+        }).filter((element) => element !== '');
+        setIngredientsAndMeasureList(ingredientsAndMeasure);
       }
     };
     const fetchDrinkAPI = async () => {
       const URL_API = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
       const data = await getApi(URL_API);
+
       if (data.drinks) {
         setRecipeDetailsAPI(data.drinks[0]);
+        const ingredients = Object.keys(data.drinks[0])
+          .filter((key) => key.includes('strIngredient'));
+        const measure = (Object.keys(data.drinks[0])
+          .filter((key) => key.includes('strMeasure')));
+        const ingredientsAndMeasure = ingredients.map((ingredient, index) => {
+          if (data.drinks[0][ingredient] && data.drinks[0][measure[index]]) {
+            return `${data.drinks[0][ingredient]} - ${data.drinks[0][measure[index]]} `;
+          }
+          return '';
+        }).filter((element) => element !== '');
+        setIngredientsAndMeasureList(ingredientsAndMeasure);
       }
     };
     return pathname.includes('meals') ? fetchRecipe() : fetchDrinkAPI();
@@ -122,6 +148,26 @@ function ProviderSearch({ children }: ProviderSearchProps) {
       window.alert("Sorry, we haven't found any recipes for these filters.");
     }
     setShowFilter(true);
+  };
+
+  const handleClickFavorite = (path: string, id: string) => {
+    if (recipeDetailsAPI && !favorites.some((favorite) => favorite.id === id)) {
+      const newFavorite = [...favorites, {
+        id,
+        type: path === 'meals' ? 'meal' : 'drink',
+        nationality: path === 'meals' ? recipeDetailsAPI.strArea : '',
+        category: recipeDetailsAPI?.strCategory ? recipeDetailsAPI.strCategory : '',
+        alcoholicOrNot: path === 'meals' ? '' : recipeDetailsAPI.strAlcoholic,
+        name: path === 'meals' ? recipeDetailsAPI.strMeal : recipeDetailsAPI.strDrink,
+        image: path === 'meals' ? recipeDetailsAPI.strMealThumb
+          : recipeDetailsAPI.strDrinkThumb,
+      }];
+      setFavorites(newFavorite);
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorite));
+    }
+    const removeFavorite = favorites.filter((favorite) => favorite.id !== id);
+    setFavorites(removeFavorite);
+    return localStorage.setItem('favoriteRecipes', JSON.stringify(removeFavorite));
   };
 
   const values = {
@@ -138,6 +184,11 @@ function ProviderSearch({ children }: ProviderSearchProps) {
     recipeDetailsAPI,
     showForm,
     setShowForm,
+    ingredientsAndMeasureList,
+    locationURL,
+    handleClickFavorite,
+    favorites,
+    setFavorites,
   };
 
   return (

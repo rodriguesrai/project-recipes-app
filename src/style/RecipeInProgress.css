@@ -1,0 +1,14 @@
+.done {
+  text-decoration: line-through solid black;
+}
+
+.ingredients-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.btnFinalizar {
+  bottom: 0;
+  position: fixed;
+}

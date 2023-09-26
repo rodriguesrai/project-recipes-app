@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import { ApiReturnDrinks, ApiReturnType,
-  ApiReturnTypeMeals, RecipeMealsDetails } from '../types';
+  ApiReturnTypeMeals, FavoriteType, RecipeMealsDetails } from '../types';
 
 type ContextSearchType = {
   handleChange: (event:
@@ -18,6 +18,17 @@ type ContextSearchType = {
   recipeDetailsAPI: RecipeMealsDetails | undefined,
   showForm: boolean,
   setShowForm: (arg: any) => void,
+  handleClickFavorite: (path: string, id: string) => void,
+  favorites: FavoriteType[],
+  setFavorites: (arg: any) => void,
+  ingredientsAndMeasureList: string[],
+  locationURL: {
+    hash: string,
+    key: string,
+    pathname: string,
+    search: string,
+    state: string | null
+  }
 };
 const ContextSearch = createContext({} as ContextSearchType);
 
