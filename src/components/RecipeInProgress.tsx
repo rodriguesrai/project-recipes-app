@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ContextSearch from '../context/ContextSearch';
 import BlackHeart from '../images/blackHeartIcon.svg';
 import WhiteHeart from '../images/whiteHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 function RecipeInProgress() {
   const { fetchRecipeDetailsAPI, recipeDetailsAPI,
@@ -28,6 +29,8 @@ function RecipeInProgress() {
     setCheckedIngredients(updatedIngredients);
     localStorage.setItem('inProgressRecipes', JSON.stringify(updatedIngredients));
   };
+  console.log(recipeDetailsAPI);
+
   const filteredList = ingredientsAndMeasureList
     .filter((ingredient: string) => !ingredient.includes('null - null'));
   useEffect(() => {
@@ -55,7 +58,6 @@ function RecipeInProgress() {
   }, []);
 
   const handleSubmit = () => {
-    console.log(category);
     const newDoneRecipe = {
       id: category === 'meals' ? recipeDetailsAPI?.idMeal : recipeDetailsAPI?.idDrink,
       nationality: category === 'meals' ? recipeDetailsAPI?.strArea : '',
@@ -85,22 +87,31 @@ function RecipeInProgress() {
   return (
     <div>
       <img
+        className="recipe-img"
         src={ category === 'meals'
           ? recipeDetailsAPI?.strMealThumb : recipeDetailsAPI?.strDrinkThumb }
         alt={ category === 'meals'
           ? recipeDetailsAPI?.strMeal : recipeDetailsAPI?.strDrink }
         data-testid="recipe-photo"
       />
-      <h2 data-testid="recipe-title">
+      <h2 data-testid="recipe-title" className="recipe-title">
         {category === 'meals'
           ? recipeDetailsAPI?.strMeal : recipeDetailsAPI?.strDrink}
       </h2>
-      <button data-testid="share-btn" onClick={ handleClickCopy }>Compartilhar</button>
-      {copied && (<p>Link copied!</p>)}
-      {
+      <div className="btns-container">
+        <button
+          data-testid="share-btn"
+          className="favAndShare"
+          onClick={ handleClickCopy }
+        >
+          <img src={ shareIcon } alt="Compartilhar" />
+        </button>
+        {copied && (<p>Link copied!</p>)}
+        {
        favorites.some((favorite) => favorite.id.includes(id))
          ? (
            <button
+             className="favAndShare"
              src={ BlackHeart }
              data-testid="favorite-btn"
              onClick={ () => handleClickFavorite(category, id) }
@@ -109,6 +120,7 @@ function RecipeInProgress() {
            </button>)
          : (
            <button
+             className="favAndShare"
              src={ WhiteHeart }
              data-testid="favorite-btn"
              onClick={ () => handleClickFavorite(category, id) }
@@ -116,10 +128,12 @@ function RecipeInProgress() {
              <img src={ WhiteHeart } alt="White Heart" />
            </button>)
       }
-      <h3 data-testid="recipe-category">
+      </div>
+      <h3>Ingredients</h3>
+      <span data-testid="recipe-category" className="alcoholic">
         {category === 'meals'
           ? recipeDetailsAPI?.strCategory : recipeDetailsAPI?.strAlcoholic}
-      </h3>
+      </span>
       <div data-testid="instructions" className="ingredients-container">
         {filteredList.length > 0 && filteredList.map((ingredient, index) => (
           <label
@@ -141,6 +155,8 @@ function RecipeInProgress() {
           </label>
         ))}
       </div>
+      <h3>Instructions</h3>
+      <p className="instructions">{recipeDetailsAPI?.strInstructions}</p>
       <button
         className="btnFinalizar"
         data-testid="finish-recipe-btn"
