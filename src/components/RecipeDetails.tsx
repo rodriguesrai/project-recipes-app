@@ -39,12 +39,8 @@ function RecipeDetails() {
 
   const handleClickCopy = async () => {
     const url = window.location.href;
-    try {
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-    } catch (error) {
-      setCopied(false);
-    }
+    await navigator.clipboard.writeText(url);
+    setCopied(true);
   };
 
   useEffect(() => {
@@ -102,6 +98,7 @@ function RecipeDetails() {
   return (
     <>
       <div>
+        <button onClick={ () => navigate('/meals') }>Voltar</button>
         { pathname.includes('meals') ? (
           <div>
             {' '}
