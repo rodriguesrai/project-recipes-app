@@ -4,6 +4,7 @@ import ContextSearch from '../context/ContextSearch';
 import BlackHeart from '../images/blackHeartIcon.svg';
 import ShareIcon from '../images/shareIcon.svg';
 import { FavoriteType } from '../types';
+import '../style/FavoriteRecipes.css';
 
 function FavoriteRecipes() {
   const { setFavorites, favorites, handleClickFavorite } = useContext(ContextSearch);
@@ -60,7 +61,8 @@ function FavoriteRecipes() {
             <div key={ favorite.id }>
               <Link to={ `${window.location.origin}/${favorite.type}s/${favorite.id}` }>
                 <img
-                  id="imgFolder"
+                  className="imgFolder"
+                  src={ favorite.image }
                   alt=""
                   data-testid={ `${index}-horizontal-image` }
                 />
