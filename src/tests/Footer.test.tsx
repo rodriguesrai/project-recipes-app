@@ -6,8 +6,6 @@ import ProviderRecipes from '../context/ProviderRecipes';
 import ProviderLogin from '../context/ProviderLogin';
 import ProviderSearch from '../context/ProviderSearch';
 import App from '../App';
-import Drinks from '../components/Drinks';
-import Meals from '../components/Meals';
 
 const receiveIds = {
   drinks: 'drinks-bottom-btn',

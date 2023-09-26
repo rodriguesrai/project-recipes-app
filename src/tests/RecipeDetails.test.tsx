@@ -1,5 +1,5 @@
 import React from 'react';
-import { findByTestId, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import ProviderLogin from '../context/ProviderLogin';
 import ProviderSearch from '../context/ProviderSearch';
 import ProviderRecipes from '../context/ProviderRecipes';

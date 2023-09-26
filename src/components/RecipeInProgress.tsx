@@ -54,38 +54,32 @@ function RecipeInProgress() {
     }
   }, []);
   const handleSubmit = () => {
-    const existingDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const dateNow = new Date();
-    let tags: string[] = [];
-    if (recipeDetailsAPI?.strTags) {
-      tags = recipeDetailsAPI.strTags.split(',').map((tag) => tag.trim());
-    }
     const newDoneRecipe = {
       id: category === 'meals' ? recipeDetailsAPI?.idMeal : recipeDetailsAPI?.idDrink,
       nationality: category === 'meals' ? recipeDetailsAPI?.strArea : '',
       name: category === 'meals' ? recipeDetailsAPI?.strMeal : recipeDetailsAPI?.strDrink,
       category: recipeDetailsAPI?.strCategory,
       image: category === 'meals'
-        ? recipeDetailsAPI?.strMealThumb
-        : recipeDetailsAPI?.strDrinkThumb,
-      tags,
+        ? recipeDetailsAPI?.strMealThumb : recipeDetailsAPI?.strDrinkThumb,
+      tags: recipeDetailsAPI?.strTags
+        ? recipeDetailsAPI.strTags.split(',').map((tag) => tag.trim()) : [],
       alcoholicOrNot: category === 'meals' ? '' : recipeDetailsAPI?.strAlcoholic,
       type: category === 'meals' ? 'meal' : 'drink',
-      doneDate: dateNow.toISOString(),
+      doneDate: new Date().toISOString(),
     };
+
+    const existingDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     const updatedDoneRecipes = [...existingDoneRecipes, newDoneRecipe];
     localStorage.setItem('doneRecipes', JSON.stringify(updatedDoneRecipes));
     navigate('/done-recipes');
   };
+
   const handleClickCopy = async () => {
     const url = window.location.href.split('/').splice(0, 5).join('/');
-    try {
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-    } catch (error) {
-      setCopied(false);
-    }
+    await navigator.clipboard.writeText(url);
+    setCopied(true);
   };
+
   return (
     <div>
       <img
