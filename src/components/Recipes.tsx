@@ -52,7 +52,7 @@ function Recipes() {
         return goat;
       case 'Cocoa':
         return cocoa;
-      case 'Other / Unknown':
+      case 'Other/Unknown':
         return other;
       case 'Shake':
         return shake;
