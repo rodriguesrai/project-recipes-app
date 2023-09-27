@@ -47,9 +47,9 @@ describe('Testes página de receitas favoritas', () => {
       </ProviderRecipes>,
       { route: '/favorite-recipes' },
     );
-    const btnAll = screen.getByRole('button', { name: /all/i });
-    const btnMeals = screen.getByRole('button', { name: /meals/i });
-    const btnDrinks = screen.getByRole('button', { name: /drinks/i });
+    const btnAll = screen.getByTestId('filter-by-all-btn');
+    const btnMeals = screen.getByTestId('filter-by-meal-btn');
+    const btnDrinks = screen.getByTestId('filter-by-drink-btn');
     // expect(localStorage.getItem).toHaveBeenCalled();
 
     const btnShare = screen.getByTestId('0-horizontal-share-btn');
