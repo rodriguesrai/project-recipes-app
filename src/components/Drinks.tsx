@@ -1,6 +1,8 @@
 import { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ApiReturnDrinks } from '../types';
 import ContextSearch from '../context/ContextSearch';
+import { CardsContainer, RecipesCard, RecipesImgs } from '../style/Drinks-Meals.styled';
 
 function Drinks() {
   const [newResults, setNewResults] = useState<ApiReturnDrinks>();
@@ -14,15 +16,22 @@ function Drinks() {
     }
   }, [apiValue]);
   return (
-    <div>
+    <CardsContainer>
       {newResults?.drinks && newResults.drinks
         .map(({ idDrink, strDrinkThumb, strDrink }, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ idDrink }>
-            <img src={ strDrinkThumb } alt="" data-testid={ `${index}-card-img` } />
+
+          <RecipesCard data-testid={ `${index}-recipe-card` } key={ idDrink }>
+            <Link to={ `/drinks/${idDrink}` }>
+              <RecipesImgs
+                src={ strDrinkThumb }
+                alt=""
+                data-testid={ `${index}-card-img` }
+              />
+            </Link>
             <p data-testid={ `${index}-card-name` }>{strDrink}</p>
-          </div>
+          </RecipesCard>
         ))}
-    </div>
+    </CardsContainer>
   );
 }
 export default Drinks;

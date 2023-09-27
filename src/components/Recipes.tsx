@@ -29,7 +29,9 @@ function Recipes() {
   }, [category]);
   if (showFilter && category === 'meals') {
     return (
-      <Meals />
+      <div className="recipes-container">
+        <Meals />
+      </div>
     );
   }
   if (showFilter && category === 'drinks') {
