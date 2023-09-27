@@ -1,42 +1,48 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, Link } from 'react-router-dom';
 import DrinkIcon from '../images/drinkIcon.svg';
 import MealIcon from '../images/mealIcon.svg';
 import '../style/Footer.css';
-// teste
+
 function Footer() {
-  const navigate = useNavigate();
+/*   const navigate = useNavigate();
   const handleNavigatorDrinks = () => {
     navigate('/drinks');
   };
   const handleNavigatorMeals = () => {
     navigate('/meals');
   };
-
+ */
   return (
-
     <>
       <footer
         data-testid="footer"
         className="fixedFooter"
       >
 
-        <button
-          type="button"
-          data-testid="drinks-bottom-btn"
-          src={ DrinkIcon }
-          onClick={ handleNavigatorDrinks }
-        >
-          <img src={ DrinkIcon } alt="Drinks" />
+        <Link
+          to="/drinks"
+          className="imgButton"
 
-        </button>
-        <button
-          type="button"
-          data-testid="meals-bottom-btn"
-          src={ MealIcon }
-          onClick={ handleNavigatorMeals }
         >
-          <img src={ MealIcon } alt="Meals" />
-        </button>
+          <img
+            src={ DrinkIcon }
+            alt="Drinks"
+            className="imgDrinks"
+            data-testid="drinks-bottom-btn"
+          />
+        </Link>
+        <Link
+          to="/meals"
+          className="imgButton"
+
+        >
+          <img
+            src={ MealIcon }
+            alt="Meals"
+            className="imgMeals"
+            data-testid="meals-bottom-btn"
+          />
+        </Link>
 
       </footer>
       <main>
