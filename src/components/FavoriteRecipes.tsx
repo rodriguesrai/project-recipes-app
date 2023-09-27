@@ -53,14 +53,14 @@ function FavoriteRecipes() {
           data-testid="filter-by-meal-btn"
           onClick={ () => filterByBtn('meal') }
         >
-          <ImgFilter src={ Drinks } alt="" />
+          <ImgFilter src={ Foods } alt="" />
 
         </ButtonFilter>
         <ButtonFilter
           data-testid="filter-by-drink-btn"
           onClick={ () => filterByBtn('drink') }
         >
-          <ImgFilter src={ Foods } alt="" />
+          <ImgFilter src={ Drinks } alt="" />
 
         </ButtonFilter>
       </ContainerFilter>
