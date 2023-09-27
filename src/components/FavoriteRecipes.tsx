@@ -5,6 +5,13 @@ import BlackHeart from '../images/blackHeartIcon.svg';
 import ShareIcon from '../images/shareIcon.svg';
 import { FavoriteType } from '../types';
 import '../style/FavoriteRecipes.css';
+import All from '../style/icons/All.svg';
+import Drinks from '../style/icons/drinks.svg';
+import Foods from '../style/icons/foods.svg';
+import { ButtonFilter, ImgFilter,
+  ContainerFilter, RecipeContainer,
+  ImgRecipe, DetailsContainer, FavoriteAndShare,
+  LinkStyle, TextDetails } from '../style/FavoriteRecipes.styled';
 
 function FavoriteRecipes() {
   const { setFavorites, favorites, handleClickFavorite } = useContext(ContextSearch);
@@ -34,71 +41,82 @@ function FavoriteRecipes() {
   };
   return (
     <>
-      <button
-        data-testid="filter-by-all-btn"
-        onClick={ () => filterByBtn('all') }
-      >
-        All
+      <ContainerFilter>
+        <ButtonFilter
+          data-testid="filter-by-all-btn"
+          onClick={ () => filterByBtn('all') }
+        >
+          <ImgFilter src={ All } alt="" />
 
-      </button>
-      <button
-        data-testid="filter-by-meal-btn"
-        onClick={ () => filterByBtn('meal') }
-      >
-        Meals
+        </ButtonFilter>
+        <ButtonFilter
+          data-testid="filter-by-meal-btn"
+          onClick={ () => filterByBtn('meal') }
+        >
+          <ImgFilter src={ Drinks } alt="" />
 
-      </button>
-      <button
-        data-testid="filter-by-drink-btn"
-        onClick={ () => filterByBtn('drink') }
-      >
-        Drinks
+        </ButtonFilter>
+        <ButtonFilter
+          data-testid="filter-by-drink-btn"
+          onClick={ () => filterByBtn('drink') }
+        >
+          <ImgFilter src={ Foods } alt="" />
 
-      </button>
+        </ButtonFilter>
+      </ContainerFilter>
       <div>
         {favorites.length > 0 && (filtredResults.length > 0 ? filtredResults
           : favorites).map((favorite, index) => (
-            <div key={ favorite.id }>
+            <RecipeContainer key={ favorite.id }>
               <Link to={ `${window.location.origin}/${favorite.type}s/${favorite.id}` }>
-                <img
+                <ImgRecipe
                   className="imgFolder"
                   src={ favorite.image }
                   alt=""
                   data-testid={ `${index}-horizontal-image` }
                 />
               </Link>
-              <Link to={ `${window.location.origin}/${favorite.type}s/${favorite.id}` }>
-                <p data-testid={ `${index}-horizontal-name` }>{favorite.name}</p>
-              </Link>
-              <p data-testid={ `${index}-horizontal-top-text` }>{favorite.category}</p>
-              {favorite.type === 'meal'
-                ? (
-                  <p data-testid={ `${index}-horizontal-top-text` }>
-                    {`${favorite.nationality} - ${favorite.category}`}
+              <DetailsContainer>
+                <LinkStyle
+                  to={ `${window.location.origin}/${favorite.type}s/${favorite.id}` }
+                >
+                  <p data-testid={ `${index}-horizontal-name` }>{favorite.name}</p>
+                </LinkStyle>
+                <TextDetails
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  {favorite.category}
 
-                  </p>
-                )
-                : (
-                  <p data-testid={ `${index}-horizontal-top-text` }>
-                    {favorite.alcoholicOrNot}
+                </TextDetails>
+                {favorite.type === 'meal'
+                  ? (
+                    <TextDetails data-testid={ `${index}-horizontal-top-text` }>
+                      {`${favorite.nationality} - ${favorite.category}`}
 
-                  </p>)}
-              {copied === favorite.id && <p>Link copied!</p>}
-              <button
-                data-testid={ `${index}-horizontal-share-btn` }
-                src={ ShareIcon }
-                onClick={ () => handleClickCopy(favorite.type, favorite.id) }
-              >
-                <img src={ ShareIcon } alt="" />
-              </button>
-              <button
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                src={ BlackHeart }
-                onClick={ () => handleClickFavorite(`${favorite.type}s`, favorite.id) }
-              >
-                <img src={ BlackHeart } alt="" />
-              </button>
-            </div>
+                    </TextDetails>
+                  )
+                  : (
+                    <TextDetails data-testid={ `${index}-horizontal-top-text` }>
+                      {favorite.alcoholicOrNot}
+
+                    </TextDetails>)}
+                {copied === favorite.id && <p>Link copied!</p>}
+                <FavoriteAndShare
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  src={ ShareIcon }
+                  onClick={ () => handleClickCopy(favorite.type, favorite.id) }
+                >
+                  <img src={ ShareIcon } alt="" />
+                </FavoriteAndShare>
+                <FavoriteAndShare
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  src={ BlackHeart }
+                  onClick={ () => handleClickFavorite(`${favorite.type}s`, favorite.id) }
+                >
+                  <img src={ BlackHeart } alt="" />
+                </FavoriteAndShare>
+              </DetailsContainer>
+            </RecipeContainer>
         ))}
       </div>
     </>
