@@ -2,6 +2,9 @@ import { useContext, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ContextSearch from '../context/ContextSearch';
 import SearchIcon from '../images/searchIcon.svg';
+import { FormSearchBar, RadiosLabel,
+  ButtonSearchBar, InputRadio,
+  InputText } from '../style/SearchBar.styled';
 
 function SearchBar() {
   const { handleChange, handleSubmit, apiValue, showForm, setShowForm,
@@ -47,15 +50,19 @@ function SearchBar() {
         </button>
       )}
       {showForm && (
-        <form action="" onSubmit={ submitSearch }>
-          <input
+
+        <FormSearchBar action="" onSubmit={ submitSearch }>
+
+          <InputText
             type="text"
             data-testid="search-input"
             onChange={ handleChange }
             name="input"
+            placeholder="Search"
           />
-          <label htmlFor="">
-            <input
+
+          <RadiosLabel htmlFor="">
+            <InputRadio
               type="radio"
               name="parm"
               id=""
@@ -64,7 +71,7 @@ function SearchBar() {
               onChange={ handleChange }
             />
             Ingredient
-            <input
+            <InputRadio
               type="radio"
               name="parm"
               id=""
@@ -73,7 +80,7 @@ function SearchBar() {
               onChange={ handleChange }
             />
             Name
-            <input
+            <InputRadio
               type="radio"
               name="parm"
               id=""
@@ -82,9 +89,12 @@ function SearchBar() {
               onChange={ handleChange }
             />
             First Letter
-          </label>
-          <button data-testid="exec-search-btn">Search</button>
-        </form>
+          </RadiosLabel>
+
+          <ButtonSearchBar data-testid="exec-search-btn">Search</ButtonSearchBar>
+
+        </FormSearchBar>
+
       )}
     </div>
   );

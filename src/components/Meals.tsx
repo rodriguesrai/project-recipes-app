@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import ContextSearch from '../context/ContextSearch';
 import { ApiReturnType } from '../types';
+import { CardsContainer, RecipesCard,
+  RecipesImgs } from '../style/Drinks-Meals.styled';
 
 function Meals() {
   const [newResults, setNewResults] = useState<ApiReturnType>();
@@ -15,15 +17,15 @@ function Meals() {
     }
   }, [apiValue]);
   return (
-    <div>
+    <CardsContainer>
       {newResults?.meals
       && newResults.meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
-        <div data-testid={ `${index}-recipe-card` } key={ idMeal }>
-          <img src={ strMealThumb } alt="" data-testid={ `${index}-card-img` } />
+        <RecipesCard data-testid={ `${index}-recipe-card` } key={ idMeal }>
+          <RecipesImgs src={ strMealThumb } alt="" data-testid={ `${index}-card-img` } />
           <p data-testid={ `${index}-card-name` }>{strMeal}</p>
-        </div>
+        </RecipesCard>
       ))}
-    </div>
+    </CardsContainer>
   );
 }
 
