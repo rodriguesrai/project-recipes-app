@@ -10,13 +10,15 @@ import chicken from '../style/icons/chicken.png';
 import dessert from '../style/icons/dessert.png';
 import goat from '../style/icons/goat.png';
 import All from '../style/icons/All.png';
-import '../style/recipes.css';
 import Alldrinks from '../style/icons/Alldrinks.png';
 import cocktail from '../style/icons/cocktail.png';
 import cocoa from '../style/icons/cocoa.png';
 import drink from '../style/icons/drink.png';
 import other from '../style/icons/other.png';
 import shake from '../style/icons/shake.png';
+import { CardsContainer, RecipesCard, RecipesImgs,
+  CategoriesBtns,
+  CategoriesContainer, RecipesContainer } from '../style/Drinks-Meals.styled';
 
 function Recipes() {
   const { fetchRecipes, recipeFilters, handleClick, apiData,
@@ -29,14 +31,16 @@ function Recipes() {
   }, [category]);
   if (showFilter && category === 'meals') {
     return (
-      <div className="recipes-container">
+      <RecipesContainer>
         <Meals />
-      </div>
+      </RecipesContainer>
     );
   }
   if (showFilter && category === 'drinks') {
     return (
-      <Drinks />
+      <RecipesContainer>
+        <Drinks />
+      </RecipesContainer>
     );
   }
 
@@ -67,11 +71,10 @@ function Recipes() {
     }
   };
   return (
-    <div className="recipes-container">
-      <div className="categories-container">
+    <RecipesContainer>
+      <CategoriesContainer>
         {recipeFilters.length > 0 && recipeFilters.map((filter, index) => (
-          <button
-            className="categories-btns"
+          <CategoriesBtns
             data-testid={ `${filter.strCategory}-category-filter` }
             key={ index }
             onClick={ (event) => handleClick(event, category) }
@@ -79,10 +82,9 @@ function Recipes() {
           >
             <img src={ getIcon(filter.strCategory) } alt={ filter.strCategory } />
 
-          </button>
+          </CategoriesBtns>
         ))}
-        <button
-          className="categories-btns"
+        <CategoriesBtns
           data-testid="All-category-filter"
           onClick={ () => fetchRecipes(category) }
         >
@@ -90,20 +92,18 @@ function Recipes() {
             src={ category === 'meals' ? All : Alldrinks }
             alt={ category === 'meals' ? All : Alldrinks }
           />
-        </button>
-      </div>
-      <div className="cards-container">
+        </CategoriesBtns>
+      </CategoriesContainer>
+      <CardsContainer>
         {apiData.length > 0 && apiData.map((recipe, index: number) => (
-          <div
-            className="recipe-cards"
+          <RecipesCard
             data-testid={ `${index}-recipe-card` }
             key={ index }
             onClick={ () => navigate(`/${category}/${category === 'meals'
               ? recipe.idMeal : recipe.idDrink}`) }
             aria-hidden="true"
           >
-            <img
-              className="recipe-imgs"
+            <RecipesImgs
               src={ category === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb }
               alt={ `${index}-card-img` }
               data-testid={ `${index}-card-img` }
@@ -111,10 +111,10 @@ function Recipes() {
             <p data-testid={ `${index}-card-name` }>
               {category === 'meals' ? recipe.strMeal : recipe.strDrink}
             </p>
-          </div>
+          </RecipesCard>
         ))}
-      </div>
-    </div>
+      </CardsContainer>
+    </RecipesContainer>
   );
 }
 export default Recipes;

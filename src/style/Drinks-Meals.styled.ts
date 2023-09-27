@@ -13,7 +13,7 @@ export const CardsContainer = styled.div`
 `;
 
 export const RecipesCard = styled.div`
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   border: 1px solid grey;
   border-radius: 8px;
   height: 180px;
@@ -24,4 +24,19 @@ export const RecipesImgs = styled.img`
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   width: 140px;
+`;
+
+export const CategoriesBtns = styled.button`
+  background: none;
+  border: none;
+`;
+
+export const CategoriesContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+export const RecipesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
