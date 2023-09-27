@@ -1,32 +1,32 @@
-.recipe-img {
+import styled from 'styled-components';
+
+export const RecipeImg = styled.img`
   height: 170px;
   object-fit: cover;
   width: 100vw;
-}
+`;
 
-.recipe-title {
+export const RecipeTitle = styled.h2`
   color: white;
   font-size: 2.5rem;
   left: 50%;
   position: absolute;
   top: 13%;
   transform: translate(-50%, -50%);
-}
+`;
 
-.done {
-  text-decoration: line-through solid black;
-}
-
-.ingredients-container {
+export const IngredientsContainer = styled.div`
   border: 1px solid grey;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
   margin: 0 15px 30px;
   padding: 10px;
+  .done {
+    text-decoration: line-through solid black;
 }
-
-.ingredients-container label input {
+`;
+export const IngredientsInput = styled.input`
   all: unset;
   border: 1px solid orange;
   border-radius: 3px;
@@ -34,36 +34,34 @@
   height: 15px;
   margin: 0 3px;
   width: 15px;
-}
+  &:checked {
+    background-color: grey;
+  }
+`;
 
-.ingredients-container label input:checked {
-  background-color: grey;
-}
-
-span {
+export const IngredientsSpan = styled.span`
   font-size: 1.1rem;
   margin: 5px;
-}
+`;
 
-.alcoholic {
+export const IsAlcoholic = styled.span`
   font-size: 0.9rem;
   margin-left: 25px;
-}
-
-h3 {
+`;
+export const IngredientsTitle = styled.h3`
   margin: 15px 0 5px 25px;
-}
+`;
 
-.instructions {
+export const Instructions = styled.p`
   border: 1px solid grey;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
   margin: 0 15px 30px;
   padding: 10px;
-}
+`;
 
-.btnFinalizar {
+export const SubmitBtn = styled.button`
   background-color: orange;
   border: 3px solid rgba(0, 0, 0, 0.057);
   border-radius: 3px;
@@ -73,25 +71,23 @@ h3 {
   font-size: 1.2rem;
   position: fixed;
   width: 100vw;
-}
-
-.btnFinalizar:disabled {
-  background-color: gainsboro;
-  border: 3px solid rgba(0, 0, 0, 0.057);
-  border-radius: 3px;
-  bottom: 0;
-  display: block;
-  position: fixed;
-  width: 100vw;
-}
-
-.btns-container {
+  &:disabled {
+    background-color: gainsboro;
+    border: 3px solid rgba(0, 0, 0, 0.057);
+    border-radius: 3px;
+    bottom: 0;
+    display: block;
+    position: fixed;
+    width: 100vw;
+  }
+`;
+export const BtnsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 5px;
-}
+`;
 
-.favAndShare {
+export const FavAndShareBtn = styled.button`
   background: none;
   border: none;
-}
+`;

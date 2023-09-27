@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import '../style/RecipeInProgress.css';
 import { useNavigate, useParams } from 'react-router-dom';
+import { RecipeImg, RecipeTitle, BtnsContainer, FavAndShareBtn,
+  IngredientsContainer, IngredientsInput, IngredientsSpan, IngredientsTitle,
+  Instructions, IsAlcoholic, SubmitBtn } from '../style/RecipeInProgress.styled';
 import ContextSearch from '../context/ContextSearch';
 import BlackHeart from '../images/blackHeartIcon.svg';
 import WhiteHeart from '../images/whiteHeartIcon.svg';
@@ -86,19 +88,18 @@ function RecipeInProgress() {
 
   return (
     <div>
-      <img
-        className="recipe-img"
+      <RecipeImg
         src={ category === 'meals'
           ? recipeDetailsAPI?.strMealThumb : recipeDetailsAPI?.strDrinkThumb }
         alt={ category === 'meals'
           ? recipeDetailsAPI?.strMeal : recipeDetailsAPI?.strDrink }
         data-testid="recipe-photo"
       />
-      <h2 data-testid="recipe-title" className="recipe-title">
+      <RecipeTitle data-testid="recipe-title">
         {category === 'meals'
           ? recipeDetailsAPI?.strMeal : recipeDetailsAPI?.strDrink}
-      </h2>
-      <div className="btns-container">
+      </RecipeTitle>
+      <BtnsContainer>
         <button
           data-testid="share-btn"
           className="favAndShare"
@@ -110,31 +111,29 @@ function RecipeInProgress() {
         {
        favorites.some((favorite) => favorite.id.includes(id))
          ? (
-           <button
-             className="favAndShare"
+           <FavAndShareBtn
              src={ BlackHeart }
              data-testid="favorite-btn"
              onClick={ () => handleClickFavorite(category, id) }
            >
              <img src={ BlackHeart } alt="Black Heart" />
-           </button>)
+           </FavAndShareBtn>)
          : (
-           <button
-             className="favAndShare"
+           <FavAndShareBtn
              src={ WhiteHeart }
              data-testid="favorite-btn"
              onClick={ () => handleClickFavorite(category, id) }
            >
              <img src={ WhiteHeart } alt="White Heart" />
-           </button>)
+           </FavAndShareBtn>)
       }
-      </div>
-      <h3>Ingredients</h3>
-      <span data-testid="recipe-category" className="alcoholic">
+      </BtnsContainer>
+      <IngredientsTitle>Ingredients</IngredientsTitle>
+      <IsAlcoholic data-testid="recipe-category">
         {category === 'meals'
           ? recipeDetailsAPI?.strCategory : recipeDetailsAPI?.strAlcoholic}
-      </span>
-      <div data-testid="instructions" className="ingredients-container">
+      </IsAlcoholic>
+      <IngredientsContainer data-testid="instructions">
         {filteredList.length > 0 && filteredList.map((ingredient, index) => (
           <label
             data-testid={ `${index}-ingredient-step` }
@@ -142,29 +141,28 @@ function RecipeInProgress() {
             className={ checkedIngredients[ingredient]
               ? 'done ingredients' : 'ingredients' }
           >
-            <input
+            <IngredientsInput
               type="checkbox"
               name={ ingredient }
               id={ ingredient }
               onChange={ handleCheck }
               checked={ checkedIngredients[ingredient] }
             />
-            <span>
+            <IngredientsSpan>
               {ingredient}
-            </span>
+            </IngredientsSpan>
           </label>
         ))}
-      </div>
-      <h3>Instructions</h3>
+      </IngredientsContainer>
+      <Instructions>Instructions</Instructions>
       <p className="instructions">{recipeDetailsAPI?.strInstructions}</p>
-      <button
-        className="btnFinalizar"
+      <SubmitBtn
         data-testid="finish-recipe-btn"
         onClick={ handleSubmit }
         disabled={ !areAllChecked() }
       >
         Finalizar
-      </button>
+      </SubmitBtn>
     </div>
   );
 }

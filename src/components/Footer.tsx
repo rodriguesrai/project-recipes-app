@@ -1,4 +1,4 @@
-import { Outlet, useNavigate, Link } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import DrinkIcon from '../images/drinkIcon.svg';
 import MealIcon from '../images/mealIcon.svg';
 import '../style/Footer.css';
