@@ -11,7 +11,7 @@ export const HeaderContainer = styled.header`
 
 export const HeaderTitle = styled.h1`
   color: #41197F;
-  font-size: 1.5rem;
+  font-size: 2.0rem;
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   margin-top: 10px;
@@ -29,7 +29,7 @@ export const DivTitle = styled.div`
 
 export const ImgFood = styled.img`
   width: 40px;
-  height: 27px;
+  height: auto;
 `;
 
 export const ImgLogo = styled.img`
