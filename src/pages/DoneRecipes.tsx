@@ -1,6 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 import shareIcon from '../images/shareIcon.svg';
+import { ContainerFilter,
+  ButtonFilter,
+  ImgFilter,
+  TextDetails,
+  Tags,
+  FavoriteAndShare,
+  DetailsContainer,
+  ContainerTags,
+  LinkText,
+  LinkIMG,
+  DivRecipes,
+  MainContainer, Img, GlobalStyle } from '../style/DoneRecipes.styled';
+import All from '../style/icons/All1.svg';
+import Drinks from '../style/icons/drinks.svg';
+import Foods from '../style/icons/foods.svg';
 
 function DoneRecipes() {
   const [filter, setFilter] = useState('all');
@@ -33,85 +48,93 @@ function DoneRecipes() {
         }, 3000);
       });
   };
-
+  const formatDate = (dateString: any) => {
+    const date = new Date(dateString);
+    return format(date, 'dd/MM/yyyy');
+  };
   return (
     <>
-      <button
-        data-testid="filter-by-all-btn"
-        onClick={ () => setFilter('all') }
-      >
-        All
-      </button>
-      <button
-        data-testid="filter-by-meal-btn"
-        onClick={ () => setFilter('meal') }
-      >
-        Meals
-      </button>
-      <button
-        data-testid="filter-by-drink-btn"
-        onClick={ () => setFilter('drink') }
-      >
-        Drinks
-      </button>
+      <ContainerFilter>
+        <ButtonFilter
+          data-testid="filter-by-all-btn"
+          onClick={ () => setFilter('all') }
+        >
+          <ImgFilter src={ All } alt="" />
+        </ButtonFilter>
+        <ButtonFilter
+          data-testid="filter-by-meal-btn"
+          onClick={ () => setFilter('meal') }
+        >
+          <ImgFilter src={ Foods } alt="" />
+        </ButtonFilter>
+        <ButtonFilter
+          data-testid="filter-by-drink-btn"
+          onClick={ () => setFilter('drink') }
+        >
+          <ImgFilter src={ Drinks } alt="" />
+        </ButtonFilter>
+      </ContainerFilter>
+      <MainContainer>
+        {filteredRecipes.length > 0 && filteredRecipes.map((recipe, index) => (
+          <DivRecipes key={ index }>
+            <LinkIMG to={ `/${recipe.type}s/${recipe.id}` }>
+              <Img
+                src={ recipe.image }
+                alt={ recipe.name }
+                data-testid={ `${index}-horizontal-image` }
+              />
+            </LinkIMG>
+            <DetailsContainer>
+              <LinkText to={ `/${recipe.type}s/${recipe.id}` }>
+                <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
+              </LinkText>
+              { filteredRecipes[index].type === 'meal' ? (
+                <TextDetails
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  {`${recipe.nationality} - ${recipe.category}`}
 
-      {filteredRecipes.map((recipe, index) => (
+                </TextDetails>
+              ) : (
+                <TextDetails
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  {recipe.alcoholicOrNot}
+                </TextDetails>
+              )}
+              <TextDetails
+                data-testid={ `${index}-horizontal-done-date` }
+              >
+                {formatDate(recipe.doneDate)}
 
-        <div key={ index }>
-          <Link to={ `/${recipe.type}s/${recipe.id}` }>
-            <img
-              src={ recipe.image }
-              alt={ recipe.name }
-              data-testid={ `${index}-horizontal-image` }
-              style={ { maxWidth: '150px', maxHeight: '150px' } } // necessário para cypress
-            />
-          </Link>
-          <Link to={ `/${recipe.type}s/${recipe.id}` }>
-            <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
-          </Link>
-          { filteredRecipes[index].type === 'meal' ? (
-            <p
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              {`${recipe.nationality} - ${recipe.category}`}
+              </TextDetails>
+              <ContainerTags>
+                {recipe.tags.length > 0 && recipe.tags.map((tagName, tagIndex) => (
 
-            </p>
-          ) : (
-            <p
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              {recipe.alcoholicOrNot}
-            </p>
-          )}
-          <p
-            data-testid={ `${index}-horizontal-done-date` }
-          >
-            {recipe.doneDate}
+                  <Tags
+                    key={ tagIndex }
+                    data-testid={ `${index}-${tagName}-horizontal-tag` }
+                  >
+                    {tagName}
+                  </Tags>
 
-          </p>
-          <button
-            data-testid={ `${index}-horizontal-share-btn` }
-            src={ shareIcon }
-            onClick={ () => handleShareClick(recipe.id, recipe.type, index) }
-          >
-            <img
-              src={ shareIcon }
-              alt="share"
-
-            />
-          </button>
-          {copiedIndex === index && <p>Link copied!</p>}
-
-          {recipe.tags.length > 0 && recipe.tags.map((tagName, tagIndex) => (
-            <p
-              key={ tagIndex }
-              data-testid={ `${index}-${tagName}-horizontal-tag` }
-            >
-              {tagName}
-            </p>
-          ))}
-        </div>
-      ))}
+                ))}
+              </ContainerTags>
+              <FavoriteAndShare
+                data-testid={ `${index}-horizontal-share-btn` }
+                src={ shareIcon }
+                onClick={ () => handleShareClick(recipe.id, recipe.type, index) }
+              >
+                <img
+                  src={ shareIcon }
+                  alt="share"
+                />
+              </FavoriteAndShare>
+              {copiedIndex === index && <p>Link copied!</p>}
+            </DetailsContainer>
+          </DivRecipes>
+        ))}
+      </MainContainer>
     </>
   );
 }
