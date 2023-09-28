@@ -6,7 +6,7 @@ import {
   ProfileLabel,
   ProfileSpan,
   ProfileButton,
-} from '../style/Profile';
+} from '../style/Profile.styled';
 import ContextLogin from '../context/ContextLogin';
 
 function Profile() {

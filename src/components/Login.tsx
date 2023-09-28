@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ContextLogin from '../context/ContextLogin';
-import { LoginContainer, Input, Button } from '../style/Login';
+import { LoginContainer, Input, Button } from '../style/Login.styled';
 
 function Login() {
   const { login, disable, handleChange, handleSubmit } = useContext(ContextLogin);

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import ContextSearch from '../context/ContextSearch';
 import { ApiReturnType } from '../types';
 import { CardsContainer, RecipesCard,
@@ -21,7 +22,13 @@ function Meals() {
       {newResults?.meals
       && newResults.meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
         <RecipesCard data-testid={ `${index}-recipe-card` } key={ idMeal }>
-          <RecipesImgs src={ strMealThumb } alt="" data-testid={ `${index}-card-img` } />
+          <Link to={ `/meals/${idMeal}` }>
+            <RecipesImgs
+              src={ strMealThumb }
+              alt=""
+              data-testid={ `${index}-card-img` }
+            />
+          </Link>
           <p data-testid={ `${index}-card-name` }>{strMeal}</p>
         </RecipesCard>
       ))}

@@ -150,6 +150,7 @@ function ProviderSearch({ children }: ProviderSearchProps) {
     const data = await filterParm(path, location);
     if (!data[location]) {
       window.alert("Sorry, we haven't found any recipes for these filters.");
+      return setShowFilter(false);
     }
     setShowFilter(true);
   };

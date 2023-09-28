@@ -16,7 +16,7 @@ import { ButtonFilter, ImgFilter,
 function FavoriteRecipes() {
   const { setFavorites, favorites, handleClickFavorite } = useContext(ContextSearch);
   const [copied, setCopied] = useState<string | null>(null);
-  const [filtredResults, setFiltredResults] = useState<FavoriteType[]>([]);
+  const [filtredResults, setFiltredResults] = useState('all');
   useEffect(() => {
     // if alterado
     if (JSON.parse(localStorage.getItem('favoriteRecipes') as string)) {
@@ -33,40 +33,41 @@ function FavoriteRecipes() {
     setCopied(id);
   };
 
-  const filterByBtn = (type: string) => {
-    if (type === 'all') {
-      return setFiltredResults([...favorites]);
-    }
-    return setFiltredResults(favorites.filter((favorite) => favorite.type === type));
-  };
+  // const filterByBtn = (type: string) => {
+  //   if (type === 'all') {
+  //     return setFiltredResults([...favorites]);
+  //   }
+  //   return setFiltredResults(favorites.filter((favorite) => favorite.type === type));
+  // };
   return (
     <>
       <ContainerFilter>
         <ButtonFilter
           data-testid="filter-by-all-btn"
-          onClick={ () => filterByBtn('all') }
+          onClick={ () => setFiltredResults('all') }
         >
           <ImgFilter src={ All } alt="" />
 
         </ButtonFilter>
         <ButtonFilter
           data-testid="filter-by-meal-btn"
-          onClick={ () => filterByBtn('meal') }
+          onClick={ () => setFiltredResults('meal') }
         >
           <ImgFilter src={ Foods } alt="" />
 
         </ButtonFilter>
         <ButtonFilter
           data-testid="filter-by-drink-btn"
-          onClick={ () => filterByBtn('drink') }
+          onClick={ () => setFiltredResults('drink') }
         >
           <ImgFilter src={ Drinks } alt="" />
 
         </ButtonFilter>
       </ContainerFilter>
       <div>
-        {favorites.length > 0 && (filtredResults.length > 0 ? filtredResults
-          : favorites).map((favorite, index) => (
+        {favorites.length > 0 && (filtredResults === 'all' ? favorites : favorites
+          .filter((favorite) => favorite.type === filtredResults))
+          .map((favorite, index) => (
             <RecipeContainer key={ favorite.id }>
               <Link to={ `${window.location.origin}/${favorite.type}s/${favorite.id}` }>
                 <ImgRecipe
@@ -117,7 +118,7 @@ function FavoriteRecipes() {
                 </FavoriteAndShare>
               </DetailsContainer>
             </RecipeContainer>
-        ))}
+          ))}
       </div>
     </>
   );
