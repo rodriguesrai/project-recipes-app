@@ -29,6 +29,7 @@ type ContextSearchType = {
     search: string,
     state: string | null
   }
+  handleClickSearch: () => void,
 };
 const ContextSearch = createContext({} as ContextSearchType);
 
