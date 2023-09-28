@@ -7,6 +7,7 @@ align-items: center;
 margin: 0;
 background-color: #41197F;
 padding-bottom: 15px;
+margin-bottom: 20px;
 `;
 
 export const RadiosLabel = styled.label`

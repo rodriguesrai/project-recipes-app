@@ -7,18 +7,14 @@ import { FormSearchBar, RadiosLabel,
   InputText } from '../style/SearchBar.styled';
 
 function SearchBar() {
-  const { handleChange, handleSubmit, apiValue, showForm, setShowForm,
+  const { handleChange, handleSubmit, apiValue, showForm, handleClickSearch,
   } = useContext(ContextSearch);
 
   const navigate = useNavigate();
   const location = useLocation();
-  const showSearchIcon = !['/profile', '/done-recipes', '/favorite-recipes']
-    .includes(location.pathname);
 
   const path = location.pathname.substring(1);
-  const handleClick = () => {
-    setShowForm(!showForm);
-  };
+
   useEffect(() => {
     if (apiValue?.drinks && apiValue?.drinks.length === 1) {
       navigate(`drinks/${apiValue.drinks[0].idDrink}`);
@@ -39,16 +35,6 @@ function SearchBar() {
   };
   return (
     <div>
-      {showSearchIcon && (
-        <button
-          data-testid="search-top-btn"
-          onClick={ handleClick }
-          style={ { border: 'none', background: 'none', cursor: 'pointer' } }
-          src={ SearchIcon } // gambiarra para passar no avaliador
-        >
-          <img src={ SearchIcon } alt="Search" />
-        </button>
-      )}
       {showForm && (
 
         <FormSearchBar action="" onSubmit={ submitSearch }>
