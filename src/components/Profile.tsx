@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+  ProfileWrapper,
+  ProfileTitle,
+  ProfileLabel,
+  ProfileSpan,
+  ProfileButton,
+} from '../style/Profile';
 import ContextLogin from '../context/ContextLogin';
 
 function Profile() {
@@ -34,26 +41,24 @@ function Profile() {
   };
 
   return (
-    <div>
-      <h1>Perfil do usuário</h1>
+    <ProfileWrapper>
+      <ProfileTitle>Perfil do usuário</ProfileTitle>
       <div>
-        <label htmlFor="email">E-mail:</label>
-        <span
-          data-testid="profile-email"
-        >
+        <ProfileLabel htmlFor="email">E-mail:</ProfileLabel>
+        <ProfileSpan data-testid="profile-email">
           {currentEmail || 'Nenhum email disponível'}
-        </span>
+        </ProfileSpan>
       </div>
-      <button onClick={ handleDoneClick } data-testid="profile-done-btn">
+      <ProfileButton onClick={ handleDoneClick } data-testid="profile-done-btn">
         Done Recipes
-      </button>
-      <button onClick={ handleFavoriteClick } data-testid="profile-favorite-btn">
+      </ProfileButton>
+      <ProfileButton onClick={ handleFavoriteClick } data-testid="profile-favorite-btn">
         Favorite Recipes
-      </button>
-      <button onClick={ handleLogoutClick } data-testid="profile-logout-btn">
+      </ProfileButton>
+      <ProfileButton onClick={ handleLogoutClick } data-testid="profile-logout-btn">
         Logout
-      </button>
-    </div>
+      </ProfileButton>
+    </ProfileWrapper>
   );
 }
 
