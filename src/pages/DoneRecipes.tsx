@@ -12,7 +12,7 @@ import { ContainerFilter,
   LinkText,
   LinkIMG,
   DivRecipes,
-  MainContainer, Img, GlobalStyle } from '../style/DoneRecipes.styled';
+  MainContainer, Img } from '../style/DoneRecipes.styled';
 import All from '../style/icons/All1.svg';
 import Drinks from '../style/icons/drinks.svg';
 import Foods from '../style/icons/foods.svg';
