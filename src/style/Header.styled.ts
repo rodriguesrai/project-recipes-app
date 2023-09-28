@@ -35,6 +35,7 @@ export const ImgFood = styled.img`
 export const ImgLogo = styled.img`
   width: 30px;
   height: 30px;
+  margin-right: 5px;
 `;
 
 export const DivButtons = styled.div`
