@@ -12,7 +12,7 @@ function SearchBar() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const path = location.pathname.substring(1);
 
   useEffect(() => {

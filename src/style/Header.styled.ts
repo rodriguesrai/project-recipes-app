@@ -42,4 +42,3 @@ export const DivButtons = styled.div`
 
 
 `;
-
