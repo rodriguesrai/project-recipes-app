@@ -43,6 +43,10 @@ function ProviderSearch({ children }: ProviderSearchProps) {
       [name]: value,
     });
   };
+  const handleClickSearch = () => {
+    setShowForm(!showForm);
+  };
+
   const getLocalStorageCarrousel = (path:string) => {
     const responseLocalStorage = JSON
       .parse(localStorage.getItem('doneRecipes') as string);
@@ -190,6 +194,7 @@ function ProviderSearch({ children }: ProviderSearchProps) {
     handleClickFavorite,
     favorites,
     setFavorites,
+    handleClickSearch,
   };
 
   return (
