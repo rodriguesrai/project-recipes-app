@@ -9,8 +9,10 @@
   
 <p align="center">Neste projeto, a pessoa que estiver utilizando o app pode procurar uma receita específica, explorar receitas com base em diferentes critérios, favoritar e fazer as receitas, entre outras funcionalidades.</p>
 <br>
-<img src='https://i.imgur.com/sT2JgMf.png' alt='Imagem do projeto 1'>
-<img src='https://i.imgur.com/dcFPSFB.png' alt='Imagem do projeto 2'>
+
+https://github.com/rodriguesrai/project-recipes-app/assets/79939934/22529960-a65a-4a65-8abc-ce663f07d581
+
+
 
 <h2 id="technologies">Foi analisado nossa capacidade de:</h2>
 
