@@ -23,7 +23,7 @@
 - Desenvolver testes unitários.
 </p>
 
-<h2>💻 Technologies</h2>
+<h2>💻 Principais Tecnologias</h2>
 
 - React
 - Typescript
