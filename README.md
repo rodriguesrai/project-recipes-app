@@ -6,9 +6,13 @@
 <p align="center">
     <b>O layout tem como foco dispositivos móveis. Assim, todos os protótipos estarão desenvolvidos em telas menores(resolução 360 x 640).</b><br>
     Nesse projeto, desenvolvemos um app front-end para mobile com as seguintes funções:
-  
-<p align="center">A pessoa que estiver utilizando o app pode procurar uma receita específica, explorar receitas com base em diferentes critérios, favoritar e fazer as receitas, entre outras funcionalidades.</p>
+    
+- A pessoa que estiver utilizando o app pode procurar uma receita específica
+- Explorar receitas com base em diferentes critérios
+- Favoritar e fazer as receitas, entre outras funcionalidades.
+
 <br>
+<h2>Confira todas as funcionalidades no vídeo abaixo:</h2>
 
 https://github.com/rodriguesrai/project-recipes-app/assets/79939934/22529960-a65a-4a65-8abc-ce663f07d581
 
